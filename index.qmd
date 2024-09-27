@@ -1,4 +1,29 @@
 ---
-title: "egp4aq.github.io"
+title: "Elizabeth (Liz) Peterson"
+image: AEP_0697.jpg
+about:
+  template: trestles
+  image-shape: rounded
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/elizabeth-peterson-85046b204/
+      target: _blank
+    - text: GitHub
+      href: https://github.com/egp4aq
+      target: _blank
+    - text: Email
+      href: mailto:elizabethpeterson@bren.ucsb.edu
 ---
+
+Hi friend! I'm Liz Peterson. I graduated from the University of Virginia (2024) with a Bachelor’s degree in Environmental Science and a minor in Data Science. During her undergraduate career, Liz worked for the Charlottesville Community Climate Collaborative as a Climate Justice Ambassador. Her small group of Ambassadors conducted a study on natural gas use in Charlottesville, engaging with community members to explore the impacts of energy cost on their daily lives. She realized the importance of technical coding skills while conducting research on sea ice loss in the Northern Hemisphere as it is connected to greenhouse gas emissions. On campus, she logged 268 hours volunteering at HelpLine, a student-run crisis hotline, as both a volunteer and a trainer. She also worked for the Contemplative Sciences Center at UVA, where she dedicated time to helping students and faculty access resources to thrive internally. 
+
+These various experiences have given Liz a passion for climate justice as a way to help those who are disproportionately affected by climate change. She looks forward to gaining more technical skills in MEDS to work on projects that amplify the experiences of those not heard. 
+
+## Education
+
+MY EDUCATION!
+
+## Professional Experience
+
+MY EXPERIENCE!
 
