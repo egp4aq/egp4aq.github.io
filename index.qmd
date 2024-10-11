@@ -6,9 +6,11 @@ about:
   image-shape: rounded
   links:
     - text: LinkedIn
+      icon: linkedin
       href: https://www.linkedin.com/in/elizabeth-peterson-85046b204/
       target: _blank
     - text: GitHub
+      icon: github
       href: https://github.com/egp4aq
       target: _blank
     - text: Email
@@ -19,11 +21,11 @@ Hi friend! I'm Liz Peterson. I graduated from the University of Virginia (2024) 
 
 These various experiences have given Liz a passion for climate justice as a way to help those who are disproportionately affected by climate change. She looks forward to gaining more technical skills in MEDS to work on projects that amplify the experiences of those not heard. 
 
-## Education
+## [Education]{.title}
 
 MY EDUCATION!
 
-## Professional Experience
+## [Professional Experience]{.title}
 
 MY EXPERIENCE!
 

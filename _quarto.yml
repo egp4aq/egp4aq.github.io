@@ -4,20 +4,27 @@ project:
 
 website:
   title: "Liz Peterson"
+  favicon: images/my-favicon.jpg
   navbar:
-    left:
+    title: false
+    #logo: images/my-logo.jpg
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
       - href: resources.qmd
         text: Resources
+     # - text: CV
+     #   href: CV/my-cv.pdf
+  page-footer: 
+    background: light
+    left: Copyright 2024, Elizabeth Peterson
+    right: This website is built with {{< fa brands github title="the octocat github icon" >}}
 
 format:
   html:
-    theme:
-      light: cosmo
-      dark: darkly
-    css: styles.css
+    theme: styles.scss
+    mainfont: Merriweather
     toc: false
     page-layout: full
 

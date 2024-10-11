@@ -2,8 +2,11 @@
 title: "About"
 ---
 
-About this site
+## [What I do for work]{.title}
 
-```{r}
-1 + 1
-```
+work stuff
+
+## [What I do for fun]{.title}
+
+fun stuff
+
