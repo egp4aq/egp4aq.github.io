@@ -1,9 +1,9 @@
 ---
 title: "Elizabeth (Liz) Peterson"
-image: AEP_0697.jpg
+image: RJH06643.JPG
 about:
   template: trestles
-  image-shape: rounded
+  image-shape: round
   links:
     - text: LinkedIn
       icon: linkedin
@@ -17,15 +17,20 @@ about:
       href: mailto:elizabethpeterson@bren.ucsb.edu
 ---
 
-Hi friend! I'm Liz Peterson. I graduated from the University of Virginia (2024) with a Bachelor’s degree in Environmental Science and a minor in Data Science. During her undergraduate career, Liz worked for the Charlottesville Community Climate Collaborative as a Climate Justice Ambassador. Her small group of Ambassadors conducted a study on natural gas use in Charlottesville, engaging with community members to explore the impacts of energy cost on their daily lives. She realized the importance of technical coding skills while conducting research on sea ice loss in the Northern Hemisphere as it is connected to greenhouse gas emissions. On campus, she logged 268 hours volunteering at HelpLine, a student-run crisis hotline, as both a volunteer and a trainer. She also worked for the Contemplative Sciences Center at UVA, where she dedicated time to helping students and faculty access resources to thrive internally. 
+Hi, welcome to my website! I'm Liz Peterson. I am currently a Master's student at the University of California - Santa Barbara pursuing a degree in Environmental Data Science. I graduated from the University of Virginia (2024) with a Bachelor’s degree in Environmental Science and a minor in Data Science. She realized the importance of technical coding skills while conducting research on sea ice loss in the Northern Hemisphere as it is connected to greenhouse gas emissions. 
 
 These various experiences have given Liz a passion for climate justice as a way to help those who are disproportionately affected by climate change. She looks forward to gaining more technical skills in MEDS to work on projects that amplify the experiences of those not heard. 
 
 ## [Education]{.title}
 
-MY EDUCATION!
+Masters of Environmental Data Science (Bren School of Environmental Science and Management at UCSB 2025)
+
+Bachelors of Arts in Environmental Science with a Minor in Data Science (UVA 2024)
 
 ## [Professional Experience]{.title}
 
-MY EXPERIENCE!
+During my undergraduate career, I worked for the Charlottesville Community Climate Collaborative as a Climate Justice Ambassador. My small group of Ambassadors conducted a study on natural gas use in Charlottesville, engaging with community members to explore the impacts of energy cost on their daily lives.
 
+On campus, I logged 268 hours volunteering at HelpLine, a student-run crisis hotline, as both a volunteer and a trainer. 
+
+I also worked for the Contemplative Sciences Center at UVA, where I dedicated time to helping students and faculty access resources to thrive internally.

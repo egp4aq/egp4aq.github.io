@@ -8,7 +8,7 @@ website:
   navbar:
     title: false
     #logo: images/my-logo.jpg
-    right:
+    left:
       - href: index.qmd
         text: Home
       - about.qmd
