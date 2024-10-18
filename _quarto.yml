@@ -14,6 +14,7 @@ website:
       - about.qmd
       - href: resources.qmd
         text: Resources
+      - posts.qmd
      # - text: CV
      #   href: CV/my-cv.pdf
   page-footer: 

@@ -1,0 +1,46 @@
+---
+title: "How to get from Falls Church, VA to Santa Barbara, CA"
+description: "There's a suprising amount of space in this country"
+author:
+  - name: Liz Peterson
+    url: https://egp4aq.github.io/
+    orcid: 0000-0002-5300-3075
+    affiliation: MEDS
+    affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
+date: 2024-10-18
+categories: [Quarto, MEDS, eds-296]
+toc: true
+bibliography: references.bib
+csl: plos-computational-biology.csl
+image: IMG_6658.jpg
+citation:
+  url: https://egp4aq.github.io/posts/2024-10-18-my-first-post
+---
+
+## This is my first section
+
+I'm going to insert a footnote here[^1]
+
+[^1]: Here is a new footnote
+
+## MOUNT RUSHMORE
+
+```{r}
+#| echo: false
+knitr::include_graphics("IMG_6633.jpg")
+```
+
+Here's my next paragraph[^2]
+
+[^2]: Here is my second footnote
+
+I'm citing Sam Csik [@csik2022]
+
+Here is more random text. I'm going to site a journal article now[@gaynor2022].
+
+```{r}
+#| echo: false
+knitr::include_graphics("IMG_6671.jpg")
+```
+
+

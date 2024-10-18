@@ -1,5 +1,54 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "work stuff"
+  },
+  {
+    "objectID": "about.html#what-i-do-for-work",
+    "href": "about.html#what-i-do-for-work",
+    "title": "About",
+    "section": "",
+    "text": "work stuff"
+  },
+  {
+    "objectID": "about.html#what-i-do-for-fun",
+    "href": "about.html#what-i-do-for-fun",
+    "title": "About",
+    "section": "What I do for fun",
+    "text": "What I do for fun\nfun stuff"
+  },
+  {
+    "objectID": "posts/2024-10-18-my-first-post/index.html",
+    "href": "posts/2024-10-18-my-first-post/index.html",
+    "title": "How to get from Falls Church, VA to Santa Barbara, CA",
+    "section": "",
+    "text": "I’m going to insert a footnote here1"
+  },
+  {
+    "objectID": "posts/2024-10-18-my-first-post/index.html#this-is-my-first-section",
+    "href": "posts/2024-10-18-my-first-post/index.html#this-is-my-first-section",
+    "title": "How to get from Falls Church, VA to Santa Barbara, CA",
+    "section": "",
+    "text": "I’m going to insert a footnote here1"
+  },
+  {
+    "objectID": "posts/2024-10-18-my-first-post/index.html#mount-rushmore",
+    "href": "posts/2024-10-18-my-first-post/index.html#mount-rushmore",
+    "title": "How to get from Falls Church, VA to Santa Barbara, CA",
+    "section": "MOUNT RUSHMORE",
+    "text": "MOUNT RUSHMORE\n\n\n\n\n\n\n\n\n\nHere’s my next paragraph2\nI’m citing Sam Csik [1]\nHere is more random text. I’m going to site a journal article now[2]."
+  },
+  {
+    "objectID": "posts/2024-10-18-my-first-post/index.html#footnotes",
+    "href": "posts/2024-10-18-my-first-post/index.html#footnotes",
+    "title": "How to get from Falls Church, VA to Santa Barbara, CA",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nHere is a new footnote↩︎\nHere is my second footnote↩︎"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Elizabeth (Liz) Peterson",
@@ -21,24 +70,10 @@
     "text": "Professional Experience\nDuring my undergraduate career, I worked for the Charlottesville Community Climate Collaborative as a Climate Justice Ambassador. My small group of Ambassadors conducted a study on natural gas use in Charlottesville, engaging with community members to explore the impacts of energy cost on their daily lives.\nOn campus, I logged 268 hours volunteering at HelpLine, a student-run crisis hotline, as both a volunteer and a trainer.\nI also worked for the Contemplative Sciences Center at UVA, where I dedicated time to helping students and faculty access resources to thrive internally."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
     "section": "",
-    "text": "work stuff"
-  },
-  {
-    "objectID": "about.html#what-i-do-for-work",
-    "href": "about.html#what-i-do-for-work",
-    "title": "About",
-    "section": "",
-    "text": "work stuff"
-  },
-  {
-    "objectID": "about.html#what-i-do-for-fun",
-    "href": "about.html#what-i-do-for-fun",
-    "title": "About",
-    "section": "What I do for fun",
-    "text": "What I do for fun\nfun stuff"
+    "text": "How to get from Falls Church, VA to Santa Barbara, CA\n\n\nThere’s a suprising amount of space in this country\n\n\n\nLiz Peterson\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]
