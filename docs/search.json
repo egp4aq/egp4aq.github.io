@@ -56,6 +56,13 @@
     "text": "Footnotes\n\n\nHere is a new footnote↩︎\nHere is my second footnote↩︎"
   },
   {
+    "objectID": "posts/2024-12-02-220-final/index.html",
+    "href": "posts/2024-12-02-220-final/index.html",
+    "title": "Thomas Fire analysis",
+    "section": "",
+    "text": "CitationBibTeX citation:@online{peterson2024,\n  author = {Peterson, Liz},\n  title = {Thomas {Fire} Analysis},\n  date = {2024-12-04},\n  url = {https://egp4aq.github.io/posts/2024-12-02-220-final},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPeterson, Liz. 2024. “Thomas Fire Analysis.” December 4,\n2024. https://egp4aq.github.io/posts/2024-12-02-220-final."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Elizabeth (Liz) Peterson",
@@ -67,6 +74,34 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "How to get from Falls Church, VA to Santa Barbara, CA\n\n\nThere’s a suprising amount of space in this country\n\n\n\nLiz Peterson\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Thomas Fire analysis\n\n\nAnalyzing the 2017 Thomas Fire through Air Quality Index analysis and false color image analysis\n\n\n\nLiz Peterson\n\n\nDec 4, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to get from Falls Church, VA to Santa Barbara, CA\n\n\n\nQuarto\n\n\nMEDS\n\n\neds-296\n\n\n\nThere’s a suprising amount of space in this country\n\n\n\nLiz Peterson\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2024-12-02-220-final/index.html#highlights-of-analysis",
+    "href": "posts/2024-12-02-220-final/index.html#highlights-of-analysis",
+    "title": "Thomas Fire analysis",
+    "section": "Highlights of analysis",
+    "text": "Highlights of analysis"
+  },
+  {
+    "objectID": "posts/2024-12-02-220-final/index.html#dataset-descriptions",
+    "href": "posts/2024-12-02-220-final/index.html#dataset-descriptions",
+    "title": "Thomas Fire analysis",
+    "section": "Dataset descriptions",
+    "text": "Dataset descriptions"
+  },
+  {
+    "objectID": "posts/2024-12-02-220-final/index.html#data-analysis",
+    "href": "posts/2024-12-02-220-final/index.html#data-analysis",
+    "title": "Thomas Fire analysis",
+    "section": "Data Analysis",
+    "text": "Data Analysis"
+  },
+  {
+    "objectID": "posts/2024-12-02-220-final/index.html#final-visualizations",
+    "href": "posts/2024-12-02-220-final/index.html#final-visualizations",
+    "title": "Thomas Fire analysis",
+    "section": "Final visualizations",
+    "text": "Final visualizations"
   }
 ]

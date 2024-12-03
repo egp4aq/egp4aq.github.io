@@ -1,1 +1,5 @@
+# options that are specified in this document apply to all posts in this folder
+
+freeze: auto
+
 title-block-banner: true

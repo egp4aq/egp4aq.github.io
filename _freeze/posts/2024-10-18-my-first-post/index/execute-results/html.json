@@ -1,0 +1,15 @@
+{
+  "hash": "4a9711ad940787327286dcc181249907",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"How to get from Falls Church, VA to Santa Barbara, CA\"\ndescription: \"There's a suprising amount of space in this country\"\nauthor:\n  - name: Liz Peterson\n    url: https://egp4aq.github.io/\n    orcid: 0000-0002-5300-3075\n    affiliation: MEDS\n    affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science\ndate: 2024-10-18\ncategories: [Quarto, MEDS, eds-296]\ntoc: true\nbibliography: references.bib\ncsl: plos-computational-biology.csl\nimage: IMG_6658.jpg\ncitation:\n  url: https://egp4aq.github.io/posts/2024-10-18-my-first-post\n---\n\n\n## This is my first section\n\nI'm going to insert a footnote here[^1]\n\n[^1]: Here is a new footnote\n\n## MOUNT RUSHMORE\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](IMG_6633.jpg)\n:::\n:::\n\n\nHere's my next paragraph[^2]\n\n[^2]: Here is my second footnote\n\nI'm citing Sam Csik [@csik2022]\n\nHere is more random text. I'm going to site a journal article now[@gaynor2022].\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](IMG_6671.jpg)\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
