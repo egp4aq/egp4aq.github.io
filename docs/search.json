@@ -60,35 +60,28 @@
     "href": "posts/2024-12-02-220-final/index.html",
     "title": "Thomas Fire analysis",
     "section": "",
-    "text": "CitationBibTeX citation:@online{peterson2024,\n  author = {Peterson, Liz},\n  title = {Thomas {Fire} Analysis},\n  date = {2024-12-04},\n  url = {https://egp4aq.github.io/posts/2024-12-02-220-final},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPeterson, Liz. 2024. “Thomas Fire Analysis.” December 4,\n2024. https://egp4aq.github.io/posts/2024-12-02-220-final."
+    "text": "The Thomas Fire of December 2017 burned approximately 440 miles squared in Ventura and Santa Barbara counties. It was not fully contained until the the middle of January 2018. This fire had huge implications, as it displaced over 100,000 southern California residents, required the largest deployment of firefighters in California history to combat a wildfire, and cost over $200 million to fight.\nTo analyze the impact of the wildfire, we will look into the implications for air quality in the surrounding areas and how the vegetation was impacted using false color imagery."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Elizabeth (Liz) Peterson",
+    "objectID": "posts/2024-12-02-220-final/index.html#about",
+    "href": "posts/2024-12-02-220-final/index.html#about",
+    "title": "Thomas Fire analysis",
     "section": "",
-    "text": "Hi, welcome to my website! I’m Liz Peterson. I am currently a Master’s student at the University of California - Santa Barbara pursuing a degree in Environmental Data Science. I graduated from the University of Virginia (2024) with a Bachelor’s degree in Environmental Science and a minor in Data Science.\nI have a passion for climate justice as a way to help those who are disproportionately affected by climate change. I love pursuing a degree that gives me the technical skills to use data to advocate for our planet. Check out my about page to learn more about me, or take a look at my blog!"
-  },
-  {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Thomas Fire analysis\n\n\nAnalyzing the 2017 Thomas Fire through Air Quality Index analysis and false color image analysis\n\n\n\nLiz Peterson\n\n\nDec 4, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to get from Falls Church, VA to Santa Barbara, CA\n\n\n\nQuarto\n\n\nMEDS\n\n\neds-296\n\n\n\nThere’s a suprising amount of space in this country\n\n\n\nLiz Peterson\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "The Thomas Fire of December 2017 burned approximately 440 miles squared in Ventura and Santa Barbara counties. It was not fully contained until the the middle of January 2018. This fire had huge implications, as it displaced over 100,000 southern California residents, required the largest deployment of firefighters in California history to combat a wildfire, and cost over $200 million to fight.\nTo analyze the impact of the wildfire, we will look into the implications for air quality in the surrounding areas and how the vegetation was impacted using false color imagery."
   },
   {
     "objectID": "posts/2024-12-02-220-final/index.html#highlights-of-analysis",
     "href": "posts/2024-12-02-220-final/index.html#highlights-of-analysis",
     "title": "Thomas Fire analysis",
     "section": "Highlights of analysis",
-    "text": "Highlights of analysis"
+    "text": "Highlights of analysis\nTo complete\n\nDatetime analysis:\nRolling average of AQI values:\nManipulation of xarray data:\nFalse color imagery:\n\nThis is very useful for assessing wildfire impacts. By mapping infrared bands to visible colors, these images can emphasize for viewers vegetation health, burn severity, and the spread of fire scars."
   },
   {
     "objectID": "posts/2024-12-02-220-final/index.html#dataset-descriptions",
     "href": "posts/2024-12-02-220-final/index.html#dataset-descriptions",
     "title": "Thomas Fire analysis",
     "section": "Dataset descriptions",
-    "text": "Dataset descriptions"
+    "text": "Dataset descriptions\n\nAir Quality Index (AQI) data from the US Environmental Protection Agency\n\nhttps://www.epa.gov/outdoor-air-quality-data\n\nLandsat Collection 2 Level-2 atmospherically collected surface reflectance data, collected by the Landsat 8 satellite\n\nhttps://planetarycomputer.microsoft.com/dataset/landsat-c2-l2\n\nCalifornia fire perimeter data from the US Department of the Interior\n\nhttps://catalog.data.gov/dataset/california-fire-perimeters-all-b3436"
   },
   {
     "objectID": "posts/2024-12-02-220-final/index.html#data-analysis",
@@ -103,5 +96,19 @@
     "title": "Thomas Fire analysis",
     "section": "Final visualizations",
     "text": "Final visualizations"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Elizabeth (Liz) Peterson",
+    "section": "",
+    "text": "Hi, welcome to my website! I’m Liz Peterson. I am currently a Master’s student at the University of California - Santa Barbara pursuing a degree in Environmental Data Science. I graduated from the University of Virginia (2024) with a Bachelor’s degree in Environmental Science and a minor in Data Science.\nI have a passion for climate justice as a way to help those who are disproportionately affected by climate change. I love pursuing a degree that gives me the technical skills to use data to advocate for our planet. Check out my about page to learn more about me, or take a look at my blog!"
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Thomas Fire analysis\n\n\nAnalyzing the 2017 Thomas Fire through Air Quality Index analysis and false color image analysis\n\n\n\nLiz Peterson\n\n\nDec 4, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to get from Falls Church, VA to Santa Barbara, CA\n\n\n\nQuarto\n\n\nMEDS\n\n\neds-296\n\n\n\nThere’s a suprising amount of space in this country\n\n\n\nLiz Peterson\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]

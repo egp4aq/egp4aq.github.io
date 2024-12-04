@@ -1,0 +1,15 @@
+{
+  "hash": "919fc1495a4a0b09c435835363ff6d6c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Thomas Fire analysis\"\ndescription: \"Analyzing the 2017 Thomas Fire through Air Quality Index analysis and false color image analysis\"\nauthor:\n  - name: Liz Peterson\n    url: https://egp4aq.github.io/\n    orcid: 0000-0002-5300-3075\n    affiliation: Master of Environmental Data Science Program @ The Bren School (UCSB)\n    affiliation-url: https://ucsb-meds.github.io/ \ndate: 12-04-2024\nimage: thomas_fire_top_pic.webp\ncitation:\n  url: https://egp4aq.github.io/posts/2024-12-02-220-final\ndraft: false\n---\n\n\n## About\n\nThe Thomas Fire of December 2017 burned approximately 440 miles squared in Ventura and Santa Barbara counties. It was not fully contained until the the middle of January 2018. This fire had huge implications, as it displaced over 100,000 southern California residents, required the largest deployment of firefighters in California history to combat a wildfire, and cost over $200 million to fight.\n\nTo analyze the impact of the wildfire, we will look into the implications for air quality in the surrounding areas and how the vegetation was impacted using false color imagery.\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](thomas_fire_picture.jpg)\n:::\n:::\n\n\n## Highlights of analysis\n\nTo complete \n\n- Datetime analysis:\n\n- Rolling average of AQI values:\n\n- Manipulation of xarray data:\n\n- False color imagery: \n\nThis is very useful for assessing wildfire impacts. By mapping infrared bands to visible colors, these images can emphasize for viewers vegetation health, burn severity, and the spread of fire scars.\n\n## Dataset descriptions\n\n1. Air Quality Index (AQI) data from the US Environmental Protection Agency\n\nhttps://www.epa.gov/outdoor-air-quality-data\n\n2. Landsat Collection 2 Level-2 atmospherically collected surface reflectance data, collected by the Landsat 8 satellite \n\nhttps://planetarycomputer.microsoft.com/dataset/landsat-c2-l2\n\n3. California fire perimeter data from the US Department of the Interior\n\nhttps://catalog.data.gov/dataset/california-fire-perimeters-all-b3436\n\n## Data Analysis\n\n## Final visualizations",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
