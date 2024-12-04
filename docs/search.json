@@ -56,46 +56,25 @@
     "text": "Footnotes\n\n\nHere is a new footnote↩︎\nHere is my second footnote↩︎"
   },
   {
-    "objectID": "posts/2024-12-02-220-final/index.html",
-    "href": "posts/2024-12-02-220-final/index.html",
+    "objectID": "posts/2024-12-02-220-final/thomas_fire_blog_post.html",
+    "href": "posts/2024-12-02-220-final/thomas_fire_blog_post.html",
     "title": "Thomas Fire analysis",
     "section": "",
     "text": "The Thomas Fire of December 2017 burned approximately 440 miles squared in Ventura and Santa Barbara counties. It was not fully contained until the the middle of January 2018. This fire had huge implications, as it displaced over 100,000 southern California residents, required the largest deployment of firefighters in California history to combat a wildfire, and cost over $200 million to fight.\nTo analyze the impact of the wildfire, we will look into the implications for air quality in the surrounding areas and how the vegetation was impacted using false color imagery."
   },
   {
-    "objectID": "posts/2024-12-02-220-final/index.html#about",
-    "href": "posts/2024-12-02-220-final/index.html#about",
+    "objectID": "posts/2024-12-02-220-final/thomas_fire_blog_post.html#air-quality-index-data-analysis",
+    "href": "posts/2024-12-02-220-final/thomas_fire_blog_post.html#air-quality-index-data-analysis",
     "title": "Thomas Fire analysis",
-    "section": "",
-    "text": "The Thomas Fire of December 2017 burned approximately 440 miles squared in Ventura and Santa Barbara counties. It was not fully contained until the the middle of January 2018. This fire had huge implications, as it displaced over 100,000 southern California residents, required the largest deployment of firefighters in California history to combat a wildfire, and cost over $200 million to fight.\nTo analyze the impact of the wildfire, we will look into the implications for air quality in the surrounding areas and how the vegetation was impacted using false color imagery."
+    "section": "Air Quality Index data analysis",
+    "text": "Air Quality Index data analysis\nBefore we do any analysis, our first step is always to read in our necessary libraries\n\nimport os\n\nimport numpy as np\nimport pandas as pd\nimport geopandas as gpd\nimport matplotlib.pyplot as plt\n\nimport xarray as xr\nimport rioxarray as rioxr\n\nFor the AQI data, we are going to read in the csv files directly from their url.\n\naqi_17 = pd.read_csv(\"https://aqs.epa.gov/aqsweb/airdata/daily_aqi_by_county_2017.zip\", compression='zip')\naqi_18 = pd.read_csv(\"https://aqs.epa.gov/aqsweb/airdata/daily_aqi_by_county_2018.zip\", compression='zip')\n\nNow we can do our analysis! This first part includes cleaning the aqi data, evaluating the rolling average, and plotting our results.\n\nCombine and clean data\nFirst, we bring together our dataframes from 2017 and 2018. Then we clean the column names by putting them all in lower snake case. Finally, we filter the data to only Santa Barbara and drop unnecessary columns.\n\n# Use the concat() function to combine the two dataframes\naqi = pd.concat([aqi_17, aqi_18])\n\n# Simplify column names\naqi.columns = (aqi.columns\n                  .str.lower()\n                  .str.replace(' ','_'))\n\n# Filter to data only from Santa Barbara county\naqi_sb = aqi[aqi['county_name'] == 'Santa Barbara']\n# Drop state_name, county_name, state_code, and county_code columns from dataframe\naqi_sb = aqi.drop(['state_name','county_name','state_code','county_code'], axis = 1)\n\n\n\nTake rolling average of AQI data\nNext, we put the date as the index of our dataframe so that we can use the index to take a rolling average over five days.\n\n# Convert 'date' column to be of type datetime\naqi_sb.date = pd.to_datetime(aqi_sb['date'])\naqi_sb = aqi_sb.set_index('date')\n\n# Calculate AQI rolling average over 5 days\naqi_sb = aqi_sb.sort_index(ascending=False)\nrolling_average = aqi_sb['aqi'].rolling('5D').mean()\n\n# Add a new column which includes the mean AQI for the 5 day rolling window \naqi_sb['five_day_average'] = rolling_average\n\n\n\nPlot\nAnd now we can plot! We are going to plot the five day average over the total data.\n\n# Plot aqi and five_day_average\nplt.figure(figsize=(10,8))\nplt.plot(aqi_sb.index.values,\n         aqi_sb['aqi'],\n         color = \"orange\")\nplt.plot(aqi_sb.index.values,\n         aqi_sb['five_day_average'],\n         color = \"blue\")\nplt.xticks(rotation = 45)\nplt.xlabel(\"Date\")\nplt.ylabel(\"AQI\")\nplt.title(\"Santa Barbara AQI (2017-2018)\")\n\nText(0.5, 1.0, 'Santa Barbara AQI (2017-2018)')"
   },
   {
-    "objectID": "posts/2024-12-02-220-final/index.html#highlights-of-analysis",
-    "href": "posts/2024-12-02-220-final/index.html#highlights-of-analysis",
+    "objectID": "posts/2024-12-02-220-final/thomas_fire_blog_post.html#false-color-mapping-data-analysis",
+    "href": "posts/2024-12-02-220-final/thomas_fire_blog_post.html#false-color-mapping-data-analysis",
     "title": "Thomas Fire analysis",
-    "section": "Highlights of analysis",
-    "text": "Highlights of analysis\nTo complete\n\nDatetime analysis:\nRolling average of AQI values:\nManipulation of xarray data:\nFalse color imagery:\n\nThis is very useful for assessing wildfire impacts. By mapping infrared bands to visible colors, these images can emphasize for viewers vegetation health, burn severity, and the spread of fire scars."
-  },
-  {
-    "objectID": "posts/2024-12-02-220-final/index.html#dataset-descriptions",
-    "href": "posts/2024-12-02-220-final/index.html#dataset-descriptions",
-    "title": "Thomas Fire analysis",
-    "section": "Dataset descriptions",
-    "text": "Dataset descriptions\n\nAir Quality Index (AQI) data from the US Environmental Protection Agency\n\nhttps://www.epa.gov/outdoor-air-quality-data\n\nLandsat Collection 2 Level-2 atmospherically collected surface reflectance data, collected by the Landsat 8 satellite\n\nhttps://planetarycomputer.microsoft.com/dataset/landsat-c2-l2\n\nCalifornia fire perimeter data from the US Department of the Interior\n\nhttps://catalog.data.gov/dataset/california-fire-perimeters-all-b3436"
-  },
-  {
-    "objectID": "posts/2024-12-02-220-final/index.html#data-analysis",
-    "href": "posts/2024-12-02-220-final/index.html#data-analysis",
-    "title": "Thomas Fire analysis",
-    "section": "Data Analysis",
-    "text": "Data Analysis"
-  },
-  {
-    "objectID": "posts/2024-12-02-220-final/index.html#final-visualizations",
-    "href": "posts/2024-12-02-220-final/index.html#final-visualizations",
-    "title": "Thomas Fire analysis",
-    "section": "Final visualizations",
-    "text": "Final visualizations"
+    "section": "False color mapping data analysis",
+    "text": "False color mapping data analysis\nFor the next part of our analysis, we are going to use false color imagery to map the fire. To begin, we’re going to read in all of our data, both the landsat and fire perimeter data.\n\n# Import landsat data\nfp = os.path.join('data','landsat8-2018-01-26-sb-simplified.nc')\nlandsat = rioxr.open_rasterio(fp)\n# Read in thomas_boundary in this notebook from data folder\nthomas_boundary = gpd.read_file('data/Thomas_Fire_boundary.shp')\n\nWe also want to make sure that our data are in the same format so that we can manipulate them.\n\n# Make sure that the thomas fire boundary and the landsat data are the same CRS\nthomas_boundary = thomas_boundary.to_crs(landsat.rio.crs)\nlandsat.rio.crs == thomas_boundary.crs\n\nTrue\n\n\nBefore we look into the landsat data, let’s plot the Thomas fire boundary to see what it looks like.\n\n# Plot boundary to see what it looks like\nthomas_boundary.plot()\n\n\n\n\n\n\n\n\nFirst, we are going to drop the band dimension from the data and then select the desired variables.\n\n# Drop the band dimension from the data\nlandsat = landsat.squeeze(\"band\", drop=True)\n\nFirst, we make a true color image!\n\n# Use robust parameter to update scale for the plot\nlandsat[['red','green','blue']].to_array().plot.imshow(robust=True)\n\n\n\n\n\n\n\n\nNow, we will create a false color image and layer on top the Thomas boundary!\n\n# Create a map with the false color image (like the one above) and the Thomas Fire perimeter\nfig, ax = plt.subplots(figsize=(10,10))\n\nlandsat[['swir22','nir08','red']].to_array().plot.imshow(ax=ax, robust=True)\n\nthomas_boundary.boundary.plot(ax=ax,\n                    color=\"red\")\n\nax.set_title(\"Thomas Fire (2017)\")\nax.legend(\"Thomas Fire\")\n\nplt.show"
   },
   {
     "objectID": "index.html",
