@@ -23,7 +23,7 @@ Have you ever asked yourself, how would I go about getting from Falls Church, Vi
 
 This drive is all to familiar to me, so I offer only this.
 
-```{r}
+```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
 knitr::include_graphics("IMG_6581.jpg")
 ```
@@ -32,7 +32,7 @@ knitr::include_graphics("IMG_6581.jpg")
 
 As a Midwesterner at heart, and a long time admirer of the butter sculpture at the Minnesota State Fair, this palace of corn appealed to me greatly. 
 
-```{r}
+```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
 knitr::include_graphics("IMG_6614.jpg")
 ```
@@ -41,7 +41,7 @@ knitr::include_graphics("IMG_6614.jpg")
 
 It's quite peculiar. You think that there might some big monumental moment (pun intended), but there's not. It really is just 4 heads carved into this rock! However, it is very beautiful. Maybe just a bit smaller than anticipated.
 
-```{r}
+```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
 knitr::include_graphics("IMG_6633.jpg")
 ```
@@ -50,7 +50,7 @@ knitr::include_graphics("IMG_6633.jpg")
 
 It's hard to describe the elation I felt running around on these red rocks after so many days in the car. I felt like I was nearly bouncing.
 
-```{r}
+```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
 knitr::include_graphics("IMG_6651.jpg")
 ```
@@ -59,7 +59,7 @@ knitr::include_graphics("IMG_6651.jpg")
 
 It truly is grand. As we were approaching, we saw a lot of canyons. We kept asking ourselves... is that it? Are we sure we're going to know when we're there? We certainly did. It's quite unmissable.
 
-```{r}
+```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
 knitr::include_graphics("IMG_6671.jpg")
 ```
@@ -68,7 +68,7 @@ knitr::include_graphics("IMG_6671.jpg")
 
 Boy oh boy was I nervous to see this sign. I'm not sure that those nerves subsided for a couple of days. But look at us now :)
 
-```{r}
+```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
 knitr::include_graphics("IMG_6685.jpg")
 ```
