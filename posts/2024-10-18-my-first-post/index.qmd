@@ -25,7 +25,7 @@ This drive is all to familiar to me, so I offer only this.
 
 ```{r}
 #| echo: false
-knitr::include_graphics("IMG_6581.HEIC")
+knitr::include_graphics("IMG_6581.jpg")
 ```
 
 ## CORN PALACE
@@ -34,7 +34,7 @@ As a Midwesterner at heart, and a long time admirer of the butter sculpture at t
 
 ```{r}
 #| echo: false
-knitr::include_graphics("IMG_6614.HEIC")
+knitr::include_graphics("IMG_6614.jpg")
 ```
 
 ## MOUNT RUSHMORE
@@ -52,7 +52,7 @@ It's hard to describe the elation I felt running around on these red rocks after
 
 ```{r}
 #| echo: false
-knitr::include_graphics("IMG_6651.HEIC")
+knitr::include_graphics("IMG_6651.jpg")
 ```
 
 ## GRAND CANYON
@@ -70,6 +70,6 @@ Boy oh boy was I nervous to see this sign. I'm not sure that those nerves subsid
 
 ```{r}
 #| echo: false
-knitr::include_graphics("IMG_6685.HEIC")
+knitr::include_graphics("IMG_6685.jpg")
 ```
 
