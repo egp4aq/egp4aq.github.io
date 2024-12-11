@@ -81,7 +81,35 @@
     "href": "posts/2024-12-10-msp-weather/index.html",
     "title": "Analyzing weather trends in Minnesota",
     "section": "",
-    "text": "Sources\nhttps://www.twincities.com/2021/10/29/remembering-the-1991-halloween-blizzard/ accessed 12/10\n\n\n\n\nCitationBibTeX citation:@online{peterson2024,\n  author = {Peterson, Liz},\n  title = {Analyzing Weather Trends in {Minnesota}},\n  date = {2024-12-10},\n  url = {https://egp4aq.github.io/posts/2024-12-10-msp-weather},\n  langid = {en}\n}\nFor attribution, please cite this work as:\nPeterson, Liz. 2024. “Analyzing Weather Trends in\nMinnesota.” December 10, 2024. https://egp4aq.github.io/posts/2024-12-10-msp-weather."
+    "text": "On Halloween 1991, a massive blizzard hit Minnesota. — This prompted me to think about whether the onset of climate change has increased the occurrence of high intensity precipitation events. While"
+  },
+  {
+    "objectID": "posts/2024-12-10-msp-weather/index.html#driving-question",
+    "href": "posts/2024-12-10-msp-weather/index.html#driving-question",
+    "title": "Analyzing weather trends in Minnesota",
+    "section": "",
+    "text": "On Halloween 1991, a massive blizzard hit Minnesota. — This prompted me to think about whether the onset of climate change has increased the occurrence of high intensity precipitation events. While"
+  },
+  {
+    "objectID": "posts/2024-12-10-msp-weather/index.html#data-details",
+    "href": "posts/2024-12-10-msp-weather/index.html#data-details",
+    "title": "Analyzing weather trends in Minnesota",
+    "section": "Data details",
+    "text": "Data details\nThe precipitation data came from NOAA’s National Centers for Environmental Information. The chunks of data were: 1985/01/01 - 1994/01/01, 1994/01/02 - 2003/12/31, 2004/01/01 - 2013/12/31, and 2014/01/01 - 2023/12/31. The weather station where the data was recorded was the Minneapolis Saint Paul international airport.\nThe emissions data comes from an R package called hockeystick. The package is very robust, including atmospheric CO2, methane, emissions, instrumental and proxy temperature records, sea levels, Arctic/Antarctic sea-ice, Hurricanes, and Paleoclimate data."
+  },
+  {
+    "objectID": "posts/2024-12-10-msp-weather/index.html#analysis",
+    "href": "posts/2024-12-10-msp-weather/index.html#analysis",
+    "title": "Analyzing weather trends in Minnesota",
+    "section": "Analysis",
+    "text": "Analysis"
+  },
+  {
+    "objectID": "posts/2024-12-10-msp-weather/index.html#results",
+    "href": "posts/2024-12-10-msp-weather/index.html#results",
+    "title": "Analyzing weather trends in Minnesota",
+    "section": "Results",
+    "text": "Results\n\nSources\nhttps://www.twincities.com/2021/10/29/remembering-the-1991-halloween-blizzard/ accessed 12/10"
   },
   {
     "objectID": "posts/2024-12-02-220-final/thomas_fire_blog_post.html",
@@ -116,6 +144,6 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "Analyzing weather trends in Minnesota\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nfollowing extreme weather events at the Minneapolis-Saint Paul International Airport\n\n\n\nLiz Peterson\n\n\nDec 10, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThomas Fire analysis\n\n\nAnalyzing the 2017 Thomas Fire through Air Quality Index analysis and false color image analysis\n\n\n\nLiz Peterson\n\n\nDec 4, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to get from Falls Church, VA to Santa Barbara, CA\n\n\n\nQuarto\n\n\nMEDS\n\n\neds-296\n\n\n\nThere’s a suprising amount of space in this country\n\n\n\nLiz Peterson\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Analyzing weather trends in Minnesota\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nFollowing extreme weather events at the Minneapolis-Saint Paul International Airport\n\n\n\nLiz Peterson\n\n\nDec 10, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThomas Fire analysis\n\n\nAnalyzing the 2017 Thomas Fire through Air Quality Index analysis and false color image analysis\n\n\n\nLiz Peterson\n\n\nDec 4, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHow to get from Falls Church, VA to Santa Barbara, CA\n\n\n\nQuarto\n\n\nMEDS\n\n\neds-296\n\n\n\nThere’s a suprising amount of space in this country\n\n\n\nLiz Peterson\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]

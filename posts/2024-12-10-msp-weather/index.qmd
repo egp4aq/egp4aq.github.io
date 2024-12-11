@@ -1,6 +1,6 @@
 ---
 title: "Analyzing weather trends in Minnesota"
-description: "following extreme weather events at the Minneapolis-Saint Paul International Airport"
+description: "Following extreme weather events at the Minneapolis-Saint Paul International Airport"
 author:
   - name: Liz Peterson
     url: https://egp4aq.github.io/
@@ -15,6 +15,23 @@ citation:
   url: https://egp4aq.github.io/posts/2024-12-10-msp-weather
 ---
 
+## Driving question
+
+On Halloween 1991, a massive blizzard hit Minnesota. ---
+This prompted me to think about whether the onset of climate change has increased the occurrence of high intensity precipitation events. While 
+
+## Data details
+
+The precipitation data came from NOAA's National Centers for Environmental Information. 
+The chunks of data were: 1985/01/01 - 1994/01/01, 1994/01/02 - 2003/12/31, 2004/01/01 - 2013/12/31, and 2014/01/01 - 2023/12/31. 
+The weather station where the data was recorded was the Minneapolis Saint Paul international airport. 
+
+
+The emissions data comes from an R package called hockeystick. The package is very robust, including atmospheric CO2, methane, emissions, instrumental and proxy temperature records, sea levels, Arctic/Antarctic sea-ice, Hurricanes, and Paleoclimate data.
+
+## Analysis
+
+## Results
 
 ### Sources
 
