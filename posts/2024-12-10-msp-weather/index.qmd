@@ -1,0 +1,21 @@
+---
+title: "Analyzing weather trends in Minnesota"
+description: "following extreme weather events at the Minneapolis-Saint Paul International Airport"
+author:
+  - name: Liz Peterson
+    url: https://egp4aq.github.io/
+    orcid: 0000-0002-5300-3075
+    affiliation: MEDS
+    affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
+date: 2024-12-10
+categories: [Quarto, MEDS]
+toc: true
+image: pioneer_press_image.png
+citation:
+  url: https://egp4aq.github.io/posts/2024-12-10-msp-weather
+---
+
+
+### Sources
+
+https://www.twincities.com/2021/10/29/remembering-the-1991-halloween-blizzard/ accessed 12/10
