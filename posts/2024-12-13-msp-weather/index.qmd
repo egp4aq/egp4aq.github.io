@@ -13,6 +13,10 @@ toc: true
 image: pioneer_press_image.png
 citation:
   url: https://egp4aq.github.io/posts/2024-12-10-msp-weather
+execute: 
+  eval: true
+  message: false
+  warning: false
 editor_options: 
   chunk_output_type: console
 ---
@@ -23,35 +27,39 @@ On Halloween 1991, a massive blizzard hit Minnesota. This event has lived on in 
 
 As the general public becomes more worried about the reality of what a warming planet means for them, more research about how climate change might influence weather patterns is being conducted. There are studies analyzing what a warmer planet means for snowfall events, but these are mostly looking at worldwide trends. This analysis aims to see how this is working in Minnesota, a place where snow has a lot of cultural meaning. 
 
+## Notebook set up 
+
+In order to set up our notebook, we need to read in our essential packages. The packages needed for this analysis are `here` for reading in the data, `hockeystick` for accessing some of the data for this project, `tidyverse` and `ggplot2` for cleaning, analyzing and visualizing the data, and `kableExtra` and `broom` for making our results neat.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
+# Load required packages
+library(here)
+library(tidyverse)
+library(ggplot2)
+library(hockeystick)
+library(kableExtra)
+library(broom)
+```
+
 ## Data details
 
 To examine these questions, we will need to gather some important data: extensive weather and precipitation data from Minnesota, atmospheric CO2 concentration data, and some information about specific snowfall events.
 
 The precipitation data came from NOAA's National Centers for Environmental Information. While this platform has a huge volume of data from all over, you are only allowed to request said data in 10 year chunks. Therefore, the chunks of data I downloaded were: 1985/01/01 - 1994/01/01, 1994/01/02 - 2003/12/31, 2004/01/01 - 2013/12/31, and 2014/01/01 - 2023/12/31. The weather station where the data was recorded was the Minneapolis Saint Paul international airport, which is located in Southeast Minnesota.
 
-The emissions data comes from an R package called hockeystick. The package is very robust with all sorts of climate adjacent information. This includes atmospheric CO2, methane, emissions, instrumental and proxy temperature records, sea levels, Arctic/Antarctic sea-ice, Hurricanes, and Paleo climate data. 
-
-## Analysis
+The atmospheric co2 data comes from an R package called hockeystick. The package is very robust with all sorts of climate adjacent information. This includes atmospheric CO2, methane, emissions, instrumental and proxy temperature records, sea levels, Arctic/Antarctic sea-ice, Hurricanes, and Paleo climate data. 
 
 
-
-## Results
+To make analysis easier, when we read in the data, we are going to do some cleaning immediately. We will use janitor to transform all of the column names in the the weather data to lower snake case. The data also comes with a lot of columns and observations of weather phenomena, but we are only interested in the hourly precipitation data, so we will drop all other columns. Additionally, for a few of the data, the hourly precipitation data is not numeric, so we will make sure to change that column to be of type numeric. 
 
 ```{r}
-# Load required packages
-library(tidyverse)
-library(here)
-library(ggplot2)
-library(here)
-library(hockeystick)
-library(kableExtra)
-library(broom)
-```
+#| code-fold: true
+#| code-summary: "Open code"
 
-
-```{r}
-# Read in data
-
+# Read in weather data
 # 1985/01/01 - 1994/01/01
 weather_1985_1994 <- read_csv(here('posts/2024-12-13-msp-weather/data/85-94.csv')) %>% # Read in csv
   janitor::clean_names() %>% # convert column names to lower snake case
@@ -77,28 +85,26 @@ weather_2014_2023 <- read_csv(here('posts/2024-12-13-msp-weather/data/14-23.csv'
   mutate(hourly_precipitation = as.numeric(hourly_precipitation))
 ```
 
+Reading in the co2 data is much simpler, because of the hockeystick package in R. To get more information about this package, read the package's documentation [here](https://cran.r-project.org/web/packages/hockeystick/readme/README.html).
+
 ```{r}
-# First preliminary plot of 85 to 94 data
-ggplot(weather_1985_1994, aes(date, hourly_precipitation)) +
-  geom_point()
+#| code-fold: true
+#| code-summary: "Open code"
+
+# Read in emissions data
+co2 <- get_carbon()
 ```
 
-```{r}
-# Aggregate data to get daily precipitation
-daily_avg_1985_1994 <- weather_1985_1994 %>%
-  mutate(date = as.Date(date)) %>%
-  group_by(date) %>%
-  summarize(daily_avg_precip = mean(hourly_precipitation))
-```
+## Analysis
+
+Now that we have both our precipitation and co2 data, we need to aggregate and filter the data for our analysis purposes. 
+
+First, we will combine the four chunks of weather data into one dataset. Then we will take that combined data and aggregate it to get the monthly average precipitation.
 
 ```{r}
-ggplot(daily_avg_1985_1994, aes(date, daily_avg_precip)) +
-  geom_point()
-```
+#| code-fold: true
+#| code-summary: "Open code"
 
-
-### Try aggregating by month to get a longer term trend
-```{r}
 # Combine all datasets into one and add a period column
 combined_weather_data <- bind_rows(
   weather_1985_1994 %>% mutate(period = "1985-1994"),
@@ -115,12 +121,31 @@ monthly_avg_combined <- combined_weather_data %>%
   summarize(monthly_avg_precip = mean(hourly_precipitation, na.rm = TRUE))  # Calculate monthly average
 ```
 
+We want to create an object for the specific date of the 1991 Halloween blizzard for visualization purposes.
+
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 # Specify date of Halloween blizzard
 highlight_date <- as.Date("1991-10-31")
 ```
 
+Lastly, we want to filter the co2 data to only include the data from 1985 - 2023, our time frame of interest.
+
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
+co2 <- co2 %>%
+  filter(year >= 1985 & year <= 2023)
+```
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 # Plot combined data
 ggplot(monthly_avg_combined, aes(x = year_month, y = monthly_avg_precip, color = period)) +
   geom_line() +
@@ -135,46 +160,13 @@ ggplot(monthly_avg_combined, aes(x = year_month, y = monthly_avg_precip, color =
   geom_vline(aes(xintercept = highlight_date), color = "black", linetype = "dashed", size = 0.3)
 ```
 
-### Testing for a trend over time
 ```{r}
-# Fit a linear regression model to test if there is a significant trend over time
-linear_model <- lm(monthly_avg_precip ~ year_month, data = monthly_avg_combined)
-
-# View the summary of the model
-summary(linear_model)
-
-```
-
-```{r}
-# Add the fitted line to the plot
-ggplot(monthly_avg_combined, aes(x = year_month, y = monthly_avg_precip)) +
-  geom_point() +  # Scatter plot of the data
-  geom_smooth(method = "lm", se = FALSE, aes()) +  # Linear model line
-  labs(title = "Monthly Average Precipitation with Trend",
-    x = "Date",
-    y = "Monthly Average Precipitation (mm)",
-    color = "Period") +
-  theme_minimal()
-```
-
-### Use hockeystick data for emissions
-```{r}
-emissions <- get_emissions()
-```
-
-```{r}
-us_emissions <- emissions %>%
-  filter(country == "United States") %>%
-  filter(year >= 1985 & year <= 2023)
-```
-
-```{r}
-ggplot(us_emissions, aes(x = year, y = co2)) +
+ggplot(co2, aes(x = year, y = average)) +
   geom_line() +
   theme_minimal() +
   labs(title = "Annual CO2 Emissions",
     x = "Year",
-    y = "CO2 Emissions (million metric tons)")
+    y = "Atmospheric CO2")
 ```
 
 ## REAL ANALYSIS FOR CO2 AND WEATHER
@@ -189,28 +181,28 @@ yearly_avg_precip <- monthly_avg_combined %>%
 
 ```{r}
 # merge the us_emissions data and the precipitation data and get rid of the columns we don't need
-precip_emissions <- left_join(yearly_avg_precip, us_emissions, by = "year") %>%
-  select(year, yearly_avg_precip, country, co2)
+precip_co2 <- left_join(yearly_avg_precip, co2, by = "year") %>%
+  select(year, yearly_avg_precip, average)
 ```
 
 In order to visualize the relationship between the yearly average precipitation and atmospheric co2, we need to use a gamma regression rather than the classic linear regression. 
 
 ```{r}
 # Gamma regression
-gamma_model <- glm(yearly_avg_precip ~ co2, data = precip_emissions, family = Gamma(link = "log"))
+gamma_model <- glm(yearly_avg_precip ~ average, data = precip_co2, family = Gamma(link = "log"))
 summary(gamma_model)
 ```
 
 ```{r}
 # Plot the data with regression line
-ggplot(precip_emissions, aes(x = co2, y = yearly_avg_precip)) +
+ggplot(precip_co2, aes(x = average, y = yearly_avg_precip)) +
   geom_point() +
   geom_smooth(method = "glm", 
               method.args = list(family = Gamma(link = "log")), 
               se = FALSE, 
               color = "blue") +
   labs(title = "Linear Relationship between CO2 Emissions and Precipitation",
-    x = "CO2 Emissions (million metric tons)",
+    x = "Atmospheric CO2",
     y = "Yearly Average Precipitation (mm)") +
   theme_minimal()
 ``` 
@@ -225,7 +217,7 @@ To
 
 ```{r}
 # Fit a linear regression model
-regression_model <- lm(yearly_avg_precip ~ co2, data = precip_emissions)
+regression_model <- lm(yearly_avg_precip ~ average, data = precip_co2)
 results <- tidy(regression_model)
 ```
 
