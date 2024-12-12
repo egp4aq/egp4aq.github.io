@@ -1,0 +1,251 @@
+---
+title: "Analyzing weather trends in Minnesota"
+description: "Following extreme weather events at the Minneapolis-Saint Paul International Airport"
+author:
+  - name: Liz Peterson
+    url: https://egp4aq.github.io/
+    orcid: 0000-0002-5300-3075
+    affiliation: MEDS
+    affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
+date: 2024-12-13
+categories: [Quarto, MEDS]
+toc: true
+image: pioneer_press_image.png
+citation:
+  url: https://egp4aq.github.io/posts/2024-12-10-msp-weather
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction
+
+On Halloween 1991, a massive blizzard hit Minnesota. This event has lived on in cultural infamy among Minnesotans. Of the 25 top snowfall events in Minnesota (from 1884-2023), only 5 of them occurred in the 21st century. There seems to be a trend away from high intensity snowfall events. This is a curious question: as the onset of climate change raises temperatures and increases the occurrence of extreme weather events, what does this mean for blizzards and intense snowfall events? Are there fewer intense snowfall events? Is that correlated to an increase in atmospheric CO2? And, if so, does that align with other trends we see in weather patterns?
+
+As the general public becomes more worried about the reality of what a warming planet means for them, more research about how climate change might influence weather patterns is being conducted. There are studies analyzing what a warmer planet means for snowfall events, but these are mostly looking at worldwide trends. This analysis aims to see how this is working in Minnesota, a place where snow has a lot of cultural meaning. 
+
+## Data details
+
+To examine these questions, we will need to gather some important data: extensive weather and precipitation data from Minnesota, atmospheric CO2 concentration data, and some information about specific snowfall events.
+
+The precipitation data came from NOAA's National Centers for Environmental Information. While this platform has a huge volume of data from all over, you are only allowed to request said data in 10 year chunks. Therefore, the chunks of data I downloaded were: 1985/01/01 - 1994/01/01, 1994/01/02 - 2003/12/31, 2004/01/01 - 2013/12/31, and 2014/01/01 - 2023/12/31. The weather station where the data was recorded was the Minneapolis Saint Paul international airport, which is located in Southeast Minnesota.
+
+The emissions data comes from an R package called hockeystick. The package is very robust with all sorts of climate adjacent information. This includes atmospheric CO2, methane, emissions, instrumental and proxy temperature records, sea levels, Arctic/Antarctic sea-ice, Hurricanes, and Paleo climate data. 
+
+## Analysis
+
+
+
+## Results
+
+```{r}
+# Load required packages
+library(tidyverse)
+library(here)
+library(ggplot2)
+library(here)
+library(hockeystick)
+library(kableExtra)
+library(broom)
+```
+
+
+```{r}
+# Read in data
+
+# 1985/01/01 - 1994/01/01
+weather_1985_1994 <- read_csv(here('posts/2024-12-13-msp-weather/data/85-94.csv')) %>% # Read in csv
+  janitor::clean_names() %>% # convert column names to lower snake case
+  select(station, date, hourly_precipitation) %>% # select only columns we are interested in
+  mutate(hourly_precipitation = as.numeric(hourly_precipitation))
+
+# 1994/01/02 - 2003/12/31
+weather_1994_2003 <- read_csv(here('posts/2024-12-13-msp-weather/data/94-03.csv')) %>%
+  janitor::clean_names() %>%
+  select(station, date, hourly_precipitation) %>%
+  mutate(hourly_precipitation = as.numeric(hourly_precipitation))
+
+# 2004/01/01 - 2013/12/31
+weather_2004_2014 <- read_csv(here('posts/2024-12-13-msp-weather/data/04-14.csv')) %>%
+  janitor::clean_names() %>%
+  select(station, date, hourly_precipitation) %>%
+  mutate(hourly_precipitation = as.numeric(hourly_precipitation))
+
+# 2014/01/01 - 2023/12/31
+weather_2014_2023 <- read_csv(here('posts/2024-12-13-msp-weather/data/14-23.csv')) %>%
+  janitor::clean_names() %>%
+  select(station, date, hourly_precipitation) %>%
+  mutate(hourly_precipitation = as.numeric(hourly_precipitation))
+```
+
+```{r}
+# First preliminary plot of 85 to 94 data
+ggplot(weather_1985_1994, aes(date, hourly_precipitation)) +
+  geom_point()
+```
+
+```{r}
+# Aggregate data to get daily precipitation
+daily_avg_1985_1994 <- weather_1985_1994 %>%
+  mutate(date = as.Date(date)) %>%
+  group_by(date) %>%
+  summarize(daily_avg_precip = mean(hourly_precipitation))
+```
+
+```{r}
+ggplot(daily_avg_1985_1994, aes(date, daily_avg_precip)) +
+  geom_point()
+```
+
+
+### Try aggregating by month to get a longer term trend
+```{r}
+# Combine all datasets into one and add a period column
+combined_weather_data <- bind_rows(
+  weather_1985_1994 %>% mutate(period = "1985-1994"),
+  weather_1994_2003 %>% mutate(period = "1994-2003"),
+  weather_2004_2014 %>% mutate(period = "2004-2014"),
+  weather_2014_2023 %>% mutate(period = "2014-2023")
+)
+
+# Aggregate data to get monthly precipitation
+monthly_avg_combined <- combined_weather_data %>%
+  mutate(date = as.Date(date),  # Ensure 'date' is in Date format
+         year_month = floor_date(date, "month")) %>%  # Create year_month column --> floor_date from lubridate
+  group_by(period, year_month) %>%  # Group by both 'period' and 'year_month'
+  summarize(monthly_avg_precip = mean(hourly_precipitation, na.rm = TRUE))  # Calculate monthly average
+```
+
+```{r}
+# Specify date of Halloween blizzard
+highlight_date <- as.Date("1991-10-31")
+```
+
+```{r}
+# Plot combined data
+ggplot(monthly_avg_combined, aes(x = year_month, y = monthly_avg_precip, color = period)) +
+  geom_line() +
+  scale_x_date(date_labels = "%b %Y", date_breaks = "18 months") +  # Format x-axis labels
+  labs(title = "Monthly Average Precipitation by Period",
+    x = "Date",
+    y = "Monthly Average Precipitation (mm)",
+    color = "Period") +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_vline(aes(xintercept = highlight_date), color = "black", linetype = "dashed", size = 0.3)
+```
+
+### Testing for a trend over time
+```{r}
+# Fit a linear regression model to test if there is a significant trend over time
+linear_model <- lm(monthly_avg_precip ~ year_month, data = monthly_avg_combined)
+
+# View the summary of the model
+summary(linear_model)
+
+```
+
+```{r}
+# Add the fitted line to the plot
+ggplot(monthly_avg_combined, aes(x = year_month, y = monthly_avg_precip)) +
+  geom_point() +  # Scatter plot of the data
+  geom_smooth(method = "lm", se = FALSE, aes()) +  # Linear model line
+  labs(title = "Monthly Average Precipitation with Trend",
+    x = "Date",
+    y = "Monthly Average Precipitation (mm)",
+    color = "Period") +
+  theme_minimal()
+```
+
+### Use hockeystick data for emissions
+```{r}
+emissions <- get_emissions()
+```
+
+```{r}
+us_emissions <- emissions %>%
+  filter(country == "United States") %>%
+  filter(year >= 1985 & year <= 2023)
+```
+
+```{r}
+ggplot(us_emissions, aes(x = year, y = co2)) +
+  geom_line() +
+  theme_minimal() +
+  labs(title = "Annual CO2 Emissions",
+    x = "Year",
+    y = "CO2 Emissions (million metric tons)")
+```
+
+## REAL ANALYSIS FOR CO2 AND WEATHER
+### Merge precipitation data with CO2 emission data
+```{r}
+#  aggregate the monthly precipitation data to be yearly data so we can merge it with the yearly us emissions data
+yearly_avg_precip <- monthly_avg_combined %>%
+  mutate(year = as.numeric(format(year_month, "%Y"))) %>%
+  group_by(year) %>%
+  summarize(yearly_avg_precip = mean(monthly_avg_precip, na.rm = TRUE))
+```
+
+```{r}
+# merge the us_emissions data and the precipitation data and get rid of the columns we don't need
+precip_emissions <- left_join(yearly_avg_precip, us_emissions, by = "year") %>%
+  select(year, yearly_avg_precip, country, co2)
+```
+
+In order to visualize the relationship between the yearly average precipitation and atmospheric co2, we need to use a gamma regression rather than the classic linear regression. 
+
+```{r}
+# Gamma regression
+gamma_model <- glm(yearly_avg_precip ~ co2, data = precip_emissions, family = Gamma(link = "log"))
+summary(gamma_model)
+```
+
+```{r}
+# Plot the data with regression line
+ggplot(precip_emissions, aes(x = co2, y = yearly_avg_precip)) +
+  geom_point() +
+  geom_smooth(method = "glm", 
+              method.args = list(family = Gamma(link = "log")), 
+              se = FALSE, 
+              color = "blue") +
+  labs(title = "Linear Relationship between CO2 Emissions and Precipitation",
+    x = "CO2 Emissions (million metric tons)",
+    y = "Yearly Average Precipitation (mm)") +
+  theme_minimal()
+``` 
+
+
+## Hypothesis testing
+### Formulate hypotheses
+
+Now that we have our model, we will utilize hypothesis testing to evaluate how much we can rely on this model. To hypothesize on our gamma model, we will begin by formulating null and alternate hypotheses. The null hypothesis (or H0) is that there is no relationship between atmospheric co2 and precipitation, or in other words, the slope of the regression line is zero. The alternative hypothesis (or H1) is that there is a significant relationship between atmospheric co2 and precipitation, or in other words, the slope of the regression line is not zero. 
+
+To 
+
+```{r}
+# Fit a linear regression model
+regression_model <- lm(yearly_avg_precip ~ co2, data = precip_emissions)
+results <- tidy(regression_model)
+```
+
+```{r}
+results %>%
+  kable("html", caption = "Regression Model Results") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+```
+
+when we run this, we get 0.479 as the p value for the co2 variable. this is much higher than 0.05, which means we cannot reject the null hypothesis. 
+for the full model significance, we have a p value of 0.4785 which is also not statistically significant.
+
+```{r}
+confint(regression_model)
+```
+
+when we run our confidence interval for the intercept, we get [-0.008684769, 0.01287229] (for a 2.5%/97.5% split). this means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our co2 variable we get [-1.277878e-06, 2.674409e-06]. This means that we are 97.5% confident that the true slope of the linear regression line for co2 is between that range, which includes zero. this simply further proves taht the slope is not significantly different from zero.
+
+
+
+### Sources
+
+https://www.twincities.com/2021/10/29/remembering-the-1991-halloween-blizzard/ accessed 12/10
