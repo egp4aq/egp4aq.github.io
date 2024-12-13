@@ -141,6 +141,25 @@ co2 <- co2 %>%
   filter(year >= 1985 & year <= 2023)
 ```
 
+## Initial visualizations
+
+First, let's visualize the trend of the atmospheric co2 content over the years. 
+
+```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
+ggplot(co2, aes(x = year, y = average)) +
+  geom_line() +
+  theme_minimal() +
+  labs(title = "Atmospheric CO2 content by year",
+    x = "Year",
+    y = "Atmospheric CO2")
+```
+
+We see from this plot that there is almost an exponential increase in atmospheric co2 content from the year 1985 to 2023. Although the trends for emissions have not kept up in the same fashion, the amount in the atmosphere has not fallen in the same way. 
+
+Next, let's visualize the precipitation data over our whole time frame. We'll do this by using the monthly average precipitation we calculated above. The dotted line points out when the blizzard occurred.
 
 ```{r}
 #| code-fold: true
@@ -160,18 +179,16 @@ ggplot(monthly_avg_combined, aes(x = year_month, y = monthly_avg_precip, color =
   geom_vline(aes(xintercept = highlight_date), color = "black", linetype = "dashed", size = 0.3)
 ```
 
-```{r}
-ggplot(co2, aes(x = year, y = average)) +
-  geom_line() +
-  theme_minimal() +
-  labs(title = "Annual CO2 Emissions",
-    x = "Year",
-    y = "Atmospheric CO2")
-```
+We see from this plot that there is some sort of upward trend in precipitation. Additionally, it seems that months with high precipitation have higher peaks than they used to. In fact, when the blizzard happened, the monthly precipitation was still much lower than months in the 21st century.
 
-## REAL ANALYSIS FOR CO2 AND WEATHER
-### Merge precipitation data with CO2 emission data
+## Combined analysis
+
+Now that we have our preliminary plots, we want to do some analysis with the two datasets together. To do this, we are going to merge the data sets. However, in order to do this, we need to aggregate the precipitation averages again to be yearly averages rather than monthly. Once we do that, we can join the two data sets on the year column.
+
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 #  aggregate the monthly precipitation data to be yearly data so we can merge it with the yearly us emissions data
 yearly_avg_precip <- monthly_avg_combined %>%
   mutate(year = as.numeric(format(year_month, "%Y"))) %>%
@@ -180,20 +197,33 @@ yearly_avg_precip <- monthly_avg_combined %>%
 ```
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 # merge the us_emissions data and the precipitation data and get rid of the columns we don't need
 precip_co2 <- left_join(yearly_avg_precip, co2, by = "year") %>%
   select(year, yearly_avg_precip, average)
 ```
 
-In order to visualize the relationship between the yearly average precipitation and atmospheric co2, we need to use a gamma regression rather than the classic linear regression. 
+## Run our model
+
+In order to visualize the relationship between the yearly average precipitation and atmospheric co2, we need to use a gamma regression rather than the classic linear regression. Gamma regression is commonly used in distributions where the variable cannot be negative, like our precipitation data. A linear regression model assumes that the disturbances or errors are normally distrubuted around zero, which is impossible for our model.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 # Gamma regression
 gamma_model <- glm(yearly_avg_precip ~ average, data = precip_co2, family = Gamma(link = "log"))
 summary(gamma_model)
 ```
 
+Now that we've run our model, let's see what it looks like visually.
+
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 # Plot the data with regression line
 ggplot(precip_co2, aes(x = average, y = yearly_avg_precip)) +
   geom_point() +
@@ -201,7 +231,7 @@ ggplot(precip_co2, aes(x = average, y = yearly_avg_precip)) +
               method.args = list(family = Gamma(link = "log")), 
               se = FALSE, 
               color = "blue") +
-  labs(title = "Linear Relationship between CO2 Emissions and Precipitation",
+  labs(title = "Relationship between Atmospheric CO2 and Precipitation",
     x = "Atmospheric CO2",
     y = "Yearly Average Precipitation (mm)") +
   theme_minimal()
@@ -211,14 +241,13 @@ ggplot(precip_co2, aes(x = average, y = yearly_avg_precip)) +
 ## Hypothesis testing
 ### Formulate hypotheses
 
-Now that we have our model, we will utilize hypothesis testing to evaluate how much we can rely on this model. To hypothesize on our gamma model, we will begin by formulating null and alternate hypotheses. The null hypothesis (or H0) is that there is no relationship between atmospheric co2 and precipitation, or in other words, the slope of the regression line is zero. The alternative hypothesis (or H1) is that there is a significant relationship between atmospheric co2 and precipitation, or in other words, the slope of the regression line is not zero. 
-
-To 
+Now that we have our model, we will utilize hypothesis testing to evaluate how much we can rely on this model. To hypothesize on our gamma model, we will begin by formulating null and alternate hypotheses. The null hypothesis (or H0) is that there is no relationship between atmospheric co2 and precipitation. The alternative hypothesis (or H1) is that there is a significant relationship between atmospheric co2 and precipitation. 
 
 ```{r}
-# Fit a linear regression model
-regression_model <- lm(yearly_avg_precip ~ average, data = precip_co2)
-results <- tidy(regression_model)
+# Gamma regression
+gamma_model <- glm(yearly_avg_precip ~ average, data = precip_co2, family = Gamma(link = "log"))
+results <- tidy(gamma_model)
+results$p.value <- sprintf("%.20f", results$p.value)
 ```
 
 ```{r}
@@ -231,12 +260,10 @@ when we run this, we get 0.479 as the p value for the co2 variable. this is much
 for the full model significance, we have a p value of 0.4785 which is also not statistically significant.
 
 ```{r}
-confint(regression_model)
+confint(gamma_model)
 ```
 
-when we run our confidence interval for the intercept, we get [-0.008684769, 0.01287229] (for a 2.5%/97.5% split). this means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our co2 variable we get [-1.277878e-06, 2.674409e-06]. This means that we are 97.5% confident that the true slope of the linear regression line for co2 is between that range, which includes zero. this simply further proves taht the slope is not significantly different from zero.
-
-
+when we run our confidence interval for the intercept, we get [-0.008684769, 0.01287229] (for a 2.5%/97.5% split). this means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our co2 variable we get [-1.277878e-06, 2.674409e-06]. This means that we are 97.5% confident that the true slope of the linear regression line for co2 is between that range, which includes zero. this simply further proves that the slope is not significantly different from zero.
 
 ### Sources
 

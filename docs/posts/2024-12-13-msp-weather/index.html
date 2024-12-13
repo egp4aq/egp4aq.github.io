@@ -206,10 +206,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#notebook-set-up" id="toc-notebook-set-up" class="nav-link" data-scroll-target="#notebook-set-up">Notebook set up</a></li>
   <li><a href="#data-details" id="toc-data-details" class="nav-link" data-scroll-target="#data-details">Data details</a></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
-  <li><a href="#real-analysis-for-co2-and-weather" id="toc-real-analysis-for-co2-and-weather" class="nav-link" data-scroll-target="#real-analysis-for-co2-and-weather">REAL ANALYSIS FOR CO2 AND WEATHER</a>
-  <ul class="collapse">
-  <li><a href="#merge-precipitation-data-with-co2-emission-data" id="toc-merge-precipitation-data-with-co2-emission-data" class="nav-link" data-scroll-target="#merge-precipitation-data-with-co2-emission-data">Merge precipitation data with CO2 emission data</a></li>
-  </ul></li>
+  <li><a href="#initial-visualizations" id="toc-initial-visualizations" class="nav-link" data-scroll-target="#initial-visualizations">Initial visualizations</a></li>
+  <li><a href="#combined-analysis" id="toc-combined-analysis" class="nav-link" data-scroll-target="#combined-analysis">Combined analysis</a></li>
+  <li><a href="#run-our-model" id="toc-run-our-model" class="nav-link" data-scroll-target="#run-our-model">Run our model</a></li>
   <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis testing</a>
   <ul class="collapse">
   <li><a href="#formulate-hypotheses" id="toc-formulate-hypotheses" class="nav-link" data-scroll-target="#formulate-hypotheses">Formulate hypotheses</a></li>
@@ -329,21 +328,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1985</span> <span class="sc">&amp;</span> year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section>
+<section id="initial-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="initial-visualizations">Initial visualizations</h2>
+<p>First, let’s visualize the trend of the atmospheric co2 content over the years.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Open code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot combined data</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(monthly_avg_combined, <span class="fu">aes</span>(<span class="at">x =</span> year_month, <span class="at">y =</span> monthly_avg_precip, <span class="at">color =</span> period)) <span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"18 months"</span>) <span class="sc">+</span>  <span class="co"># Format x-axis labels</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monthly Average Precipitation by Period"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date"</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Monthly Average Precipitation (mm)"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Period"</span>) <span class="sc">+</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> highlight_date), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(co2, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> average)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Atmospheric CO2 content by year"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Atmospheric CO2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -353,13 +350,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>We see from this plot that there is almost an exponential increase in atmospheric co2 content from the year 1985 to 2023. Although the trends for emissions have not kept up in the same fashion, the amount in the atmosphere has not fallen in the same way.</p>
+<p>Next, let’s visualize the precipitation data over our whole time frame. We’ll do this by using the monthly average precipitation we calculated above. The dotted line points out when the blizzard occurred.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(co2, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> average)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Annual CO2 Emissions"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Atmospheric CO2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Open code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot combined data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(monthly_avg_combined, <span class="fu">aes</span>(<span class="at">x =</span> year_month, <span class="at">y =</span> monthly_avg_precip, <span class="at">color =</span> period)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b %Y"</span>, <span class="at">date_breaks =</span> <span class="st">"18 months"</span>) <span class="sc">+</span>  <span class="co"># Format x-axis labels</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monthly Average Precipitation by Period"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Monthly Average Precipitation (mm)"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Period"</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> highlight_date), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">size =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -368,28 +376,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<p>We see from this plot that there is some sort of upward trend in precipitation. Additionally, it seems that months with high precipitation have higher peaks than they used to. In fact, when the blizzard happened, the monthly precipitation was still much lower than months in the 21st century.</p>
 </section>
-<section id="real-analysis-for-co2-and-weather" class="level2">
-<h2 class="anchored" data-anchor-id="real-analysis-for-co2-and-weather">REAL ANALYSIS FOR CO2 AND WEATHER</h2>
-<section id="merge-precipitation-data-with-co2-emission-data" class="level3">
-<h3 class="anchored" data-anchor-id="merge-precipitation-data-with-co2-emission-data">Merge precipitation data with CO2 emission data</h3>
+<section id="combined-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="combined-analysis">Combined analysis</h2>
+<p>Now that we have our preliminary plots, we want to do some analysis with the two datasets together. To do this, we are going to merge the data sets. However, in order to do this, we need to aggregate the precipitation averages again to be yearly averages rather than monthly. Once we do that, we can join the two data sets on the year column.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Open code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  aggregate the monthly precipitation data to be yearly data so we can merge it with the yearly us emissions data</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>yearly_avg_precip <span class="ot">&lt;-</span> monthly_avg_combined <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(year_month, <span class="st">"%Y"</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">yearly_avg_precip =</span> <span class="fu">mean</span>(monthly_avg_precip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Open code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the us_emissions data and the precipitation data and get rid of the columns we don't need</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>precip_co2 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(yearly_avg_precip, co2, <span class="at">by =</span> <span class="st">"year"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, yearly_avg_precip, average)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<p>In order to visualize the relationship between the yearly average precipitation and atmospheric co2, we need to use a gamma regression rather than the classic linear regression.</p>
+</section>
+<section id="run-our-model" class="level2">
+<h2 class="anchored" data-anchor-id="run-our-model">Run our model</h2>
+<p>In order to visualize the relationship between the yearly average precipitation and atmospheric co2, we need to use a gamma regression rather than the classic linear regression. Gamma regression is commonly used in distributions where the variable cannot be negative, like our precipitation data. A linear regression model assumes that the disturbances or errors are normally distrubuted around zero, which is impossible for our model.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Open code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gamma regression</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>gamma_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(yearly_avg_precip <span class="sc">~</span> average, <span class="at">data =</span> precip_co2, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gamma_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -412,7 +432,10 @@ AIC: -4794.3
 Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
+<p>Now that we’ve run our model, let’s see what it looks like visually.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Open code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data with regression line</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(precip_co2, <span class="fu">aes</span>(<span class="at">x =</span> average, <span class="at">y =</span> yearly_avg_precip)) <span class="sc">+</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -420,10 +443,11 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>)), </span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Linear Relationship between CO2 Emissions and Precipitation"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship between Atmospheric CO2 and Precipitation"</span>,</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Atmospheric CO2"</span>,</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Yearly Average Precipitation (mm)"</span>) <span class="sc">+</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -433,17 +457,16 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 </div>
 </section>
-</section>
 <section id="hypothesis-testing" class="level2">
 <h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis testing</h2>
 <section id="formulate-hypotheses" class="level3">
 <h3 class="anchored" data-anchor-id="formulate-hypotheses">Formulate hypotheses</h3>
-<p>Now that we have our model, we will utilize hypothesis testing to evaluate how much we can rely on this model. To hypothesize on our gamma model, we will begin by formulating null and alternate hypotheses. The null hypothesis (or H0) is that there is no relationship between atmospheric co2 and precipitation, or in other words, the slope of the regression line is zero. The alternative hypothesis (or H1) is that there is a significant relationship between atmospheric co2 and precipitation, or in other words, the slope of the regression line is not zero.</p>
-<p>To</p>
+<p>Now that we have our model, we will utilize hypothesis testing to evaluate how much we can rely on this model. To hypothesize on our gamma model, we will begin by formulating null and alternate hypotheses. The null hypothesis (or H0) is that there is no relationship between atmospheric co2 and precipitation. The alternative hypothesis (or H1) is that there is a significant relationship between atmospheric co2 and precipitation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear regression model</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>regression_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(yearly_avg_precip <span class="sc">~</span> average, <span class="at">data =</span> precip_co2)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tidy</span>(regression_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gamma regression</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>gamma_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(yearly_avg_precip <span class="sc">~</span> average, <span class="at">data =</span> precip_co2, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">tidy</span>(gamma_model)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>p.value <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"%.20f"</span>, results<span class="sc">$</span>p.value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
@@ -458,23 +481,23 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">p.value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-0.0276638</td>
-<td style="text-align: right;">0.0012424</td>
-<td style="text-align: right;">-22.26657</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: right;">-11.4392009</td>
+<td style="text-align: right;">0.2032386</td>
+<td style="text-align: right;">-56.2846</td>
+<td style="text-align: left;">0.00000000000000000000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">average</td>
-<td style="text-align: right;">0.0000883</td>
-<td style="text-align: right;">0.0000033</td>
-<td style="text-align: right;">27.05474</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0164337</td>
+<td style="text-align: right;">0.0005341</td>
+<td style="text-align: right;">30.7714</td>
+<td style="text-align: left;">0.00000000000000000000</td>
 </tr>
 </tbody>
 </table>
@@ -484,14 +507,14 @@ Number of Fisher Scoring iterations: 5</code></pre>
 </div>
 <p>when we run this, we get 0.479 as the p value for the co2 variable. this is much higher than 0.05, which means we cannot reject the null hypothesis. for the full model significance, we have a p value of 0.4785 which is also not statistically significant.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(regression_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(gamma_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    2.5 %        97.5 %
-(Intercept) -3.010518e-02 -2.522241e-02
-average      8.190984e-05  9.474048e-05</code></pre>
+<pre><code>                   2.5 %       97.5 %
+(Intercept) -11.85554125 -11.02269481
+average       0.01533981   0.01752864</code></pre>
 </div>
 </div>
-<p>when we run our confidence interval for the intercept, we get [-0.008684769, 0.01287229] (for a 2.5%/97.5% split). this means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our co2 variable we get [-1.277878e-06, 2.674409e-06]. This means that we are 97.5% confident that the true slope of the linear regression line for co2 is between that range, which includes zero. this simply further proves taht the slope is not significantly different from zero.</p>
+<p>when we run our confidence interval for the intercept, we get [-0.008684769, 0.01287229] (for a 2.5%/97.5% split). this means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our co2 variable we get [-1.277878e-06, 2.674409e-06]. This means that we are 97.5% confident that the true slope of the linear regression line for co2 is between that range, which includes zero. this simply further proves that the slope is not significantly different from zero.</p>
 </section>
 <section id="sources" class="level3">
 <h3 class="anchored" data-anchor-id="sources">Sources</h3>
