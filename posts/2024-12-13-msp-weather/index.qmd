@@ -21,6 +21,12 @@ editor_options:
   chunk_output_type: console
 ---
 
+### Before we begin
+
+Here is the link to the github repository where all of the data and code is housed:
+
+[msp-weather repository](https://github.com/egp4aq/msp-weather)
+
 ## Introduction
 
 On Halloween 1991, a massive blizzard hit Minnesota. This event has lived on in cultural infamy among Minnesotans. Of the 25 top snowfall events in Minnesota (from 1884-2023), only 5 of them occurred in the 21st century. There seems to be a trend away from high intensity snowfall events. This is a curious question: as the onset of climate change raises temperatures and increases the occurrence of extreme weather events, what does this mean for blizzards and intense snowfall events? Are there fewer intense snowfall events? Is that correlated to an increase in atmospheric CO2? And, if so, does that align with other trends we see in weather patterns?
@@ -48,10 +54,9 @@ library(broom)
 
 To examine these questions, we will need to gather some important data: extensive weather and precipitation data from Minnesota, atmospheric CO2 concentration data, and some information about specific snowfall events.
 
-The precipitation data came from NOAA's National Centers for Environmental Information. While this platform has a huge volume of data from all over, you are only allowed to request said data in 10 year chunks. Therefore, the chunks of data I downloaded were: 1985/01/01 - 1994/01/01, 1994/01/02 - 2003/12/31, 2004/01/01 - 2013/12/31, and 2014/01/01 - 2023/12/31. The weather station where the data was recorded was the Minneapolis Saint Paul international airport, which is located in Southeast Minnesota.
+The precipitation data came from NOAA's National Centers for Environmental Information. While this platform has a huge volume of data from all over, you are only allowed to request said data in 10 year chunks. Therefore, the chunks of data I downloaded were: 1985/01/01 - 1994/01/01, 1994/01/02 - 2003/12/31, 2004/01/01 - 2013/12/31, and 2014/01/01 - 2023/12/31. The weather station where the data was recorded was the Minneapolis Saint Paul international airport, which is located in Southeast Minnesota. Find this data, or conduct a search for any other weather station data, [here](https://www.ncdc.noaa.gov/cdo-web/search;jsessionid=4B32D1D356346119BA199C8252EEA6A6).
 
-The atmospheric co2 data comes from an R package called hockeystick. The package is very robust with all sorts of climate adjacent information. This includes atmospheric CO2, methane, emissions, instrumental and proxy temperature records, sea levels, Arctic/Antarctic sea-ice, Hurricanes, and Paleo climate data. 
-
+The atmospheric CO2 data comes from an R package called hockeystick. The package is very robust with all sorts of climate adjacent information. This includes atmospheric CO2, methane, emissions, instrumental and proxy temperature records, sea levels, Arctic/Antarctic sea-ice, Hurricanes, and Paleo climate data. This is a very accessible way to begin making climate models with open source software. To get more information about this package, read the package's documentation [here](https://cran.r-project.org/web/packages/hockeystick/readme/README.html).
 
 To make analysis easier, when we read in the data, we are going to do some cleaning immediately. We will use janitor to transform all of the column names in the the weather data to lower snake case. The data also comes with a lot of columns and observations of weather phenomena, but we are only interested in the hourly precipitation data, so we will drop all other columns. Additionally, for a few of the data, the hourly precipitation data is not numeric, so we will make sure to change that column to be of type numeric. 
 
@@ -85,7 +90,7 @@ weather_2014_2023 <- read_csv(here('posts/2024-12-13-msp-weather/data/14-23.csv'
   mutate(hourly_precipitation = as.numeric(hourly_precipitation))
 ```
 
-Reading in the co2 data is much simpler, because of the hockeystick package in R. To get more information about this package, read the package's documentation [here](https://cran.r-project.org/web/packages/hockeystick/readme/README.html).
+Reading in the CO2 data is much simpler, because of the hockeystick package in R. 
 
 ```{r}
 #| code-fold: true
@@ -95,11 +100,11 @@ Reading in the co2 data is much simpler, because of the hockeystick package in R
 co2 <- get_carbon()
 ```
 
-## Analysis
+## Initial analysis
 
-Now that we have both our precipitation and co2 data, we need to aggregate and filter the data for our analysis purposes. 
+Now that we have both our precipitation and CO2 data, we need to aggregate and filter the data for our analysis purposes. 
 
-First, we will combine the four chunks of weather data into one dataset. Then we will take that combined data and aggregate it to get the monthly average precipitation.
+First, we will combine the four chunks of weather data into one data set. Then we will take that combined data and aggregate it to get the monthly average precipitation. To do this, we need to pull out the month from the date datetime object, and then take the average in those specific month groups. To help with this analysis, we will add in a period column when we combine the data in order to differentiate the chunks.
 
 ```{r}
 #| code-fold: true
@@ -121,7 +126,7 @@ monthly_avg_combined <- combined_weather_data %>%
   summarize(monthly_avg_precip = mean(hourly_precipitation, na.rm = TRUE))  # Calculate monthly average
 ```
 
-We want to create an object for the specific date of the 1991 Halloween blizzard for visualization purposes.
+We want to create an object for the specific date of the 1991 Halloween blizzard for visualization purposes. We want to make sure that this is a datetime object.
 
 ```{r}
 #| code-fold: true
@@ -131,7 +136,7 @@ We want to create an object for the specific date of the 1991 Halloween blizzard
 highlight_date <- as.Date("1991-10-31")
 ```
 
-Lastly, we want to filter the co2 data to only include the data from 1985 - 2023, our time frame of interest.
+Lastly, we want to filter the CO2 data to only include the data from 1985 - 2023, our time frame of interest. This filtering is made quite easy because of how tidy the CO2 data is in the hockeystick package.
 
 ```{r}
 #| code-fold: true
@@ -143,7 +148,7 @@ co2 <- co2 %>%
 
 ## Initial visualizations
 
-First, let's visualize the trend of the atmospheric co2 content over the years. 
+First, let's visualize the trend of the atmospheric CO2 content over the years using ggplot.
 
 ```{r}
 #| code-fold: true
@@ -157,9 +162,9 @@ ggplot(co2, aes(x = year, y = average)) +
     y = "Atmospheric CO2")
 ```
 
-We see from this plot that there is almost an exponential increase in atmospheric co2 content from the year 1985 to 2023. Although the trends for emissions have not kept up in the same fashion, the amount in the atmosphere has not fallen in the same way. 
+We see from this plot that there is almost an exponential increase in atmospheric CO2 content from the year 1985 to 2023. Although the trends for emissions have not kept up in the same fashion, the amount in the atmosphere has not fallen in the same way. 
 
-Next, let's visualize the precipitation data over our whole time frame. We'll do this by using the monthly average precipitation we calculated above. The dotted line points out when the blizzard occurred.
+Next, let's visualize the precipitation data over our whole time frame. We'll do this by using the monthly average precipitation we calculated above. The dotted line points out when the blizzard occurred, the highlight date that we created before.
 
 ```{r}
 #| code-fold: true
@@ -179,11 +184,11 @@ ggplot(monthly_avg_combined, aes(x = year_month, y = monthly_avg_precip, color =
   geom_vline(aes(xintercept = highlight_date), color = "black", linetype = "dashed", size = 0.3)
 ```
 
-We see from this plot that there is some sort of upward trend in precipitation. Additionally, it seems that months with high precipitation have higher peaks than they used to. In fact, when the blizzard happened, the monthly precipitation was still much lower than months in the 21st century.
+We see from this plot that there is some sort of upward trend in precipitation. Additionally, it seems that months with high precipitation have higher peaks than they used to. In fact, when the blizzard happened, the monthly precipitation was still much lower than months in the 21st century. 
 
 ## Combined analysis
 
-Now that we have our preliminary plots, we want to do some analysis with the two datasets together. To do this, we are going to merge the data sets. However, in order to do this, we need to aggregate the precipitation averages again to be yearly averages rather than monthly. Once we do that, we can join the two data sets on the year column.
+Now that we have our preliminary plots, we want to do some analysis with the two data sets together. To do this, we are going to merge the data sets. However, in order to do this, we need to aggregate the precipitation averages again to be yearly averages rather than monthly. We will do this in the same way that we did the monthly averages, but with the year object rather than month. Once we do that, we can join the two data sets on the year column. 
 
 ```{r}
 #| code-fold: true
@@ -207,7 +212,7 @@ precip_co2 <- left_join(yearly_avg_precip, co2, by = "year") %>%
 
 ## Run our model
 
-In order to visualize the relationship between the yearly average precipitation and atmospheric co2, we need to use a gamma regression rather than the classic linear regression. Gamma regression is commonly used in distributions where the variable cannot be negative, like our precipitation data. A linear regression model assumes that the disturbances or errors are normally distrubuted around zero, which is impossible for our model.
+In order to visualize the relationship between the yearly average precipitation and atmospheric CO2, we need to use a gamma regression rather than the classic linear regression. Gamma regression is commonly used in distributions where the variable cannot be negative, like our precipitation data. A linear regression model assumes that the disturbances or errors are normally distributed around zero, which is impossible for our model.
 
 ```{r}
 #| code-fold: true
@@ -237,34 +242,52 @@ ggplot(precip_co2, aes(x = average, y = yearly_avg_precip)) +
   theme_minimal()
 ``` 
 
+The model seems to fit our data very well. The trend seems to support our initial hypothesis from the very beginning: that an increase in atmospheric CO2 content would be correlated to an increase in precipitation events. 
 
 ## Hypothesis testing
-### Formulate hypotheses
 
-Now that we have our model, we will utilize hypothesis testing to evaluate how much we can rely on this model. To hypothesize on our gamma model, we will begin by formulating null and alternate hypotheses. The null hypothesis (or H0) is that there is no relationship between atmospheric co2 and precipitation. The alternative hypothesis (or H1) is that there is a significant relationship between atmospheric co2 and precipitation. 
+Now that we have our model, we will utilize hypothesis testing to evaluate how much we can rely on this model. To hypothesize on our gamma model, we will begin by formulating null and alternate hypotheses. The null hypothesis (or H0) is that there is no relationship between atmospheric CO2 and precipitation. The alternative hypothesis (or H1) is that there is a significant relationship between atmospheric CO2 and precipitation. 
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 # Gamma regression
 gamma_model <- glm(yearly_avg_precip ~ average, data = precip_co2, family = Gamma(link = "log"))
 results <- tidy(gamma_model)
-results$p.value <- sprintf("%.20f", results$p.value)
+results$p.value <- sprintf("%.15f", results$p.value)
 ```
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 results %>%
   kable("html", caption = "Regression Model Results") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 ```
 
-when we run this, we get 0.479 as the p value for the co2 variable. this is much higher than 0.05, which means we cannot reject the null hypothesis. 
-for the full model significance, we have a p value of 0.4785 which is also not statistically significant.
+As we look at the results from the the gamma model, our p value is 0.000... Above, we have the p value rounded to 15 decimal points, for simplicity's sake. I did have it previously rounded to 30 decimal points, and still they remained at zero. Therefore, with a p value of 0, which is less than 0.05, we can reject the null hypothesis. This tells us that there is a significant relationship between atmospheric CO2 content and average precipitation. 
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Open code"
+
 confint(gamma_model)
 ```
 
-when we run our confidence interval for the intercept, we get [-0.008684769, 0.01287229] (for a 2.5%/97.5% split). this means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our co2 variable we get [-1.277878e-06, 2.674409e-06]. This means that we are 97.5% confident that the true slope of the linear regression line for co2 is between that range, which includes zero. this simply further proves that the slope is not significantly different from zero.
+When we run our confidence interval for the intercept, we get [-11.85554125 -11.02269481] (for a 2.5%/97.5% split). This means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our CO2 variable we get [0.01533981 0.01752864]. This means that we are 97.5% confident that the true value for our gamma regression falls within that range. While that range is higher than zero, it still does fall below that 0.05 range, giving us further confidence in our model. 
 
-### Sources
+## Next steps
 
-https://www.twincities.com/2021/10/29/remembering-the-1991-halloween-blizzard/ accessed 12/10
+While this analysis does take an in depth look into precipitation trends in the last 30 years in the Minneapolis, Saint Paul area as it relates to climate change, there are a couple of additions to the study that could be a great jumping off point for further research. To begin, climate change by nature is a study best done in the long term. When you look too microscopically at weather trends, they are simply that: weather, not climate. On that note, doing this analysis on a larger time scale might allow for more nuance in the results. Additionally, it is difficult to get a measure of these high intensity storm events specifically without simply looking at average precipitation, as I did here. Perhaps future studies could look at those events more specifically within these trends. Lastly, adding another geographic element could be an interesting avenue to explore. Minnesota is near and dear to my heart, which is why I chose it. I would be interested, however, to see how these trends might differ across the country and even the world.
+
+### References
+
+Chavez, A., & Jansen, J. (2021). hockeystick: Simple tools for creating hockey stick plots. Comprehensive R Archive Network (CRAN). https://cran.r-project.org/web/packages/hockeystick/readme/README.html
+
+Doyle, A. (2021, October 29). Remembering the 1991 Halloween blizzard. TwinCities.com. Retrieved December 10, 2024, from https://www.twincities.com/2021/10/29/remembering-the-1991-halloween-blizzard/
+
+National Oceanic and Atmospheric Administration. Search for climate data. National Centers for Environmental Information. https://www.ncdc.noaa.gov/cdo-web/search
+
+University of Virginia Library. Getting started with Gamma regression. University of Virginia Library. https://library.virginia.edu/data/articles/getting-started-with-gamma-regression
