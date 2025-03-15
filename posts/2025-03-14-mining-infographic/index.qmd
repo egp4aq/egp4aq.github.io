@@ -24,13 +24,13 @@ It is important to note that this analysis operates under an assumption about bo
 Before we get into the code for building out my full infographic, we need to load our necessary libraries and read in our data.
 
 ```{r}
-#| eval: true
-#| echo: false
-#| output: false
+#| eval: false
+#| echo: true
 #| warning: false
 #| message: false
 #| progress: false
 #| results: "hide"
+#| code-fold: true
 
 # Load libraries
 library(tidyverse)
@@ -46,16 +46,6 @@ library(patchwork)
 library(gridExtra)
 library(grid)
 library(corrplot)
-```
-
-```{r}
-#| eval: true
-#| echo: false
-#| warning: false
-#| message: false
-#| progress: false
-#| results: "hide"
-
 
 # Read in and clean data
 df <- read_csv(here('posts/2025-03-14-mining-infographic/data/mammal_hvy_metals_by_pop_withGUIDs.csv')) %>%
@@ -72,12 +62,13 @@ Below is the code that built up the four visualizations for this infographic.
 The first shows the map including all of the mining locations in combination with all of the mammal observations in the dataset.
 
 ```{r}
-#| eval: true
-#| echo: false
+#| eval: false
+#| echo: true
 #| warning: false
 #| message: false
 #| progress: false
 #| results: "hide"
+#| code-fold: true
 # Second data viz -> use sf object to plot lat and long --> no longer doing this
 
 # merge 
@@ -205,12 +196,13 @@ combined_plot
 This second plot shows the correlation between the high metal content in animals and the proximity to high population areas. To do this, I split the population data into three categories: low, medium, and high based on population size. 
 
 ```{r}
-#| eval: true
-#| echo: false
+#| eval: false
+#| echo: true
 #| warning: false
 #| message: false
 #| progress: false
 #| results: "hide"
+#| code-fold: true
 
 # Create categories for population size (this is an example; you can modify the breaks as needed)
 # We’ll divide into three categories: low, medium, high
@@ -261,12 +253,13 @@ city_corr_plot
 The third plot simply shows the change in lead levels in our mammals over the past century. 
 
 ```{r}
-#| eval: true
-#| echo: false
+#| eval: false
+#| echo: true
 #| warning: false
 #| message: false
 #| progress: false
 #| results: "hide"
+#| code-fold: true
 
 pb_levels <- df %>%
   mutate(pb_prop = pb/total_length) %>%
@@ -290,12 +283,13 @@ pb_levels
 Finally, we have our heatmap that shows which counties have the highest proportion of high metal content in their mammals. I filtered this down to only include the highest of those counties, that is the ones that have a ratio over 1.5. 
 
 ```{r}
-#| eval: true
-#| echo: false
+#| eval: false
+#| echo: true
 #| warning: false
 #| message: false
 #| progress: false
 #| results: "hide"
+#| code-fold: true
 
 # Combine the mg_df and fe_df dataframes into one long dataframe
 combined_df <- bind_rows(
@@ -385,6 +379,9 @@ Once I finished all of those plots in ggplot, I moved them into the software Aff
 
 ## The infographic
 This infographic is aimed at people who have a background in ecology and scientific research, enough to be inquisitive about how human activity might affect animals. The goal is for these people to see the infographic and understand where they should aim their political advocacy. As expected, it seems like the main focus should be this mining and industry that exists in the upper east side of the state, near the Boundary Water Canoe Area in Cook, Lake, and Saint Louis counties. This has been the meeting point of environmentalists and developers for quite some time now. It is my hope that this infographic could continue to spark conversation, but mostly that it could shed light on how important it is to protect our species living in these vulnerable areas. 
+
+## Visual decision
+Because of my intended audience, I made some aesthetic choices that made the infographic less informal. Despite this, to add some levity and draw the reader in, I decided to open up with a joke. I wanted the theme, colors, and text to all be in the natural domain. That is, I thought green and darker colors would be applicable to the themes. I wanted to make sure not to overwhelm the observer, even though there was a lot of information to communicate. While there were not a lot of people involved in my data and visualization, I was interested in applying a lense of care to the project. It centers around the themes of the smallest beings getting left behind. Large industrialization projects do not center the needs of these little critters. While this is not directly a DEI lens to this project, it is a lens of inclusivity as it relates to animals. I haven't focused that much on ecology in my studies at Bren, and though it is not my main interest, this has been a great dive into the reality of life for those much smaller than I. 
 
 ```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
