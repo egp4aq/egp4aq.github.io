@@ -1,0 +1,398 @@
+---
+title: "Metal content in Minnesotan mammals"
+description: "How has urbanization and industrialization impacted animals in Minnesota?"
+author:
+  - name: Liz Peterson
+    affiliation: Master of Environmental Data Science Program @ The Bren School (UCSB)
+date: 03-14-2025
+format: html
+image: mining.jpg
+---
+
+## Background
+Human activity has been proven over time to have direct impacts on animal metal content. Too much metal can cause neurological and developmental damage in animals. Two of the biggest culprits of this are industry and urbanization. These two have been extremely prevalent in the state of Minnesota. Mining in the north near the Boundary Waters has been the biggest industry in the state for more than a century. Additionally, the mines in the south east of the state have been transformed in many cases into urban development. None of this is good for the animals, and it was especially bad when developers took no heed to be environmentally conscious. 
+
+This has lead me to a couple of questions: how has metal content varied over space and time in these mammals? Does this have correlation to where these mining sites are located? What about proximity to large human populations? Additionally, I was curious whether policy decisions in these areas had any effect on these findings. Specifially, there have been a set of policy decisions over the past 50 years in Minnesota that relate to leaded gasoline. I wondered if this might have any impact on lead levels specifically in these mammals.
+
+## Data Information
+This dataset makes use of the University of Minnesota's Bell Museum of Natural History collection examining specimens of four mammal species (a mouse, shrew, bat and squirrel) to ask how tissue metal content has changed over a 94-year time period (1911-2005), and implications for measures of individual performance (body size and cranial capacity). The metal content of organisms is often elevated closer to cities, so these specimens were examined for spatial variation in metal exposure based on their proximity to human populations and the size of those populated areas at the time of collection. Analysis of mammal tissues focused on six heavy metals associated with human activity (Pb, Cd, Zn, Cu, Cr, Ni, Mn), to address whether these anthropogenic metal pollutants vary in concert with human activity.
+
+## Code
+
+It is important to note that this analysis operates under an assumption about body size and metal content. Through extensive research, it seems that when this proportion of metal content to body size for small mammals ought not exceed 1.0. 
+
+Before we get into the code for building out my full infographic, we need to load our necessary libraries and read in our data.
+
+```{r}
+#| eval: true
+#| echo: false
+#| output: false
+#| warning: false
+#| message: false
+#| progress: false
+#| results: "hide"
+
+# Load libraries
+library(tidyverse)
+library(dplyr)
+library(janitor)
+library(ggplot2)
+library(here)
+library(tmap)
+library(sf)
+library(hrbrthemes)
+library(tigris)
+library(patchwork)
+library(gridExtra)
+library(grid)
+library(corrplot)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+#| progress: false
+#| results: "hide"
+
+
+# Read in and clean data
+df <- read_csv(here('posts/2025-03-14-mining-infographic/data/mammal_hvy_metals_by_pop_withGUIDs.csv')) %>%
+  clean_names() %>%
+  filter(!is.na(latitude) & !is.na(longitude))
+# add in more data cleaning post mortem, once I understand what variables I am interested in
+
+mine_locations <- read_csv(here('posts/2025-03-14-mining-infographic/data/mine_locations.csv')) %>% 
+  clean_names()
+```
+
+
+Below is the code that built up the four visualizations for this infographic. 
+The first shows the map including all of the mining locations in combination with all of the mammal observations in the dataset.
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+#| progress: false
+#| results: "hide"
+# Second data viz -> use sf object to plot lat and long --> no longer doing this
+
+# merge 
+mines_and_metals <- merge(x=df, y=mine_locations, by = "county", all.y=TRUE) %>% 
+  filter(!is.na(fe))
+
+mining_locations <- mines_and_metals
+
+mn_shapefile <- states(cb=TRUE) %>% 
+  filter(STUSPS == "MN")
+
+ggplot() +
+  geom_sf(data = mn_shapefile, fill = "lightgrey", color = "black") +
+  geom_point(data = df, aes(x = longitude, y = latitude)
+             # find concerning metals amount to be able to make a gradient
+             ) +
+  geom_point(data = mining_locations, aes(x = longitude, y = latitude, color = commodity),
+             shape = 17, size = 3) +  # Overlay red triangles for mining sites
+  labs(
+    title = "Mining Locations and Concerning Metal Content in Mammals",
+    subtitle = "Concerning metal content is defined as roughly 20 mg/kg",
+    caption = "Data Source: Environmental Data Initiative (EDI), published May 28, 2024\nUnited States Geological Survey (USGS) Minerals Yearbook"
+    ) +
+  guides(fill = guide_legend(title = "Mining type: ")) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    legend.title = element_blank()
+    )
+
+# establish bounding box of msp 
+msp_lat_min <- 44.85
+msp_lat_max <- 45.15
+msp_long_min <- -93.45
+msp_long_max <- -93.0
+
+# map bounded to msp area  
+ggplot() +
+  geom_sf(data = mn_shapefile, fill = "lightgrey", color = "black") +
+  geom_point(data = df, aes(x = longitude, y = latitude)
+             # find concerning metals amount to be able to make a gradient
+             ) +
+  geom_point(data = mining_locations, aes(x = longitude, y = latitude, color = commodity),
+             shape = 17, size = 3) +  # Overlay red triangles for mining sites
+  xlim(msp_long_min, msp_long_max) +
+  ylim(msp_lat_min, msp_lat_max) +
+  labs(
+    title = "Mining Locations and Concerning Metal Content in Mammals",
+    subtitle = "Concerning metal content is defined as roughly 20 mg/kg",
+    caption = "Data Source: Environmental Data Initiative (EDI), published May 28, 2024\nUnited States Geological Survey (USGS) Minerals Yearbook"
+    ) +
+  guides(fill = guide_legend(title = "Mining type: ")) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    legend.title = element_blank()
+    )
+
+# Using patchwork
+# Full map (with no zoom)
+full_map <- ggplot() +
+  geom_sf(data = mn_shapefile, fill = "lightgrey", color = "black") +
+  geom_point(data = df, aes(x = longitude, y = latitude)) +  # find concerning metals amount for gradient
+  geom_point(data = mining_locations, aes(x = longitude, y = latitude, color = commodity),
+             shape = 17, size = 3) +  # Overlay red triangles for mining sites
+  labs(
+    title = "Mining Locations and Concerning Metal Content in Mammals",
+    subtitle = "Concerning metal content is defined as roughly 20 mg/kg",
+    caption = "Data Source: Environmental Data Initiative (EDI), published May 28, 2024\nUnited States Geological Survey (USGS) Minerals Yearbook"
+  ) +
+  guides(fill = guide_legend(title = "Mining type: ")) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    legend.title = element_blank()
+  )
+
+# Zoomed-in map (Minneapolis-Saint Paul area)
+msp_lat_min <- 44.85
+msp_lat_max <- 45.15
+msp_long_min <- -93.45
+msp_long_max <- -93.0
+
+zoomed_in_map <- ggplot() +
+  geom_sf(data = mn_shapefile, fill = "lightgrey", color = "black") +
+  geom_point(data = df, aes(x = longitude, y = latitude)) +  # find concerning metals amount for gradient
+  geom_point(data = mining_locations, aes(x = longitude, y = latitude, color = commodity),
+             shape = 17, size = 3) +  # Overlay red triangles for mining sites
+  xlim(msp_long_min, msp_long_max) +
+  ylim(msp_lat_min, msp_lat_max) +
+  guides(fill = guide_legend(title = "Mining type: ")) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.title.y = element_blank(),
+    legend.title = element_blank()
+  )
+
+# Combine both plots using patchwork
+combined_plot <- full_map + zoomed_in_map + plot_layout(ncol = 2)
+
+# Display the combined plot
+combined_plot
+```
+
+This second plot shows the correlation between the high metal content in animals and the proximity to high population areas. To do this, I split the population data into three categories: low, medium, and high based on population size. 
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+#| progress: false
+#| results: "hide"
+
+# Create categories for population size (this is an example; you can modify the breaks as needed)
+# We’ll divide into three categories: low, medium, high
+
+mg_df <- df %>%
+  group_by(county) %>%
+  mutate(total_mg = sum(mg)) %>%
+  arrange(total_mg) %>% 
+  ungroup() %>% 
+  mutate(mg_prop = mg/total_length)
+
+fe_df <- df %>%
+  group_by(county) %>%
+  mutate(total_fe = sum(fe)) %>%
+  arrange(total_fe) %>% 
+  mutate(fe_prop = fe/total_length) %>%
+  ungroup()
+
+fe_df_clean <- fe_df %>% 
+  drop_na(mg)
+
+fe_df_clean$pop_size_category <- cut(fe_df_clean$closest_pop_size_at_time, 
+                               breaks = c(-Inf, 1000, 10000, Inf), 
+                               labels = c("Low", "Medium", "High"))
+
+# Now, calculate the correlation for each group of population size
+library(dplyr)
+
+# Create a function to calculate correlation for each group
+correlation_by_pop <- fe_df_clean %>%
+  group_by(pop_size_category) %>%
+  summarise(correlation = cor(mg, distance_to_pop, use = "complete.obs"))
+
+# Print out the correlation values for each population group
+print(correlation_by_pop)
+
+# Visualize the correlation by population size category
+library(ggplot2)
+
+city_corr_plot <- ggplot(correlation_by_pop, aes(x = pop_size_category, y = correlation)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(title = "Correlation between Magnesium Levels and Distance to Nearest City by Population Size",
+       x = "Population Size Category", y = "Correlation") +
+  theme_minimal()
+city_corr_plot
+```
+
+The third plot simply shows the change in lead levels in our mammals over the past century. 
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+#| progress: false
+#| results: "hide"
+
+pb_levels <- df %>%
+  mutate(pb_prop = pb/total_length) %>%
+  ggplot(aes(x = year_collected, y = pb)) +
+  geom_area(fill = "#95B700") +
+  geom_line(color = "#006400") +
+  theme_minimal() +
+  labs(
+    title = "Lead levels in mammal tissue over time",
+    subtitle = "Pb level (ppm) is proportioned to animal size using length (mm)",
+    x = "Year",
+    y = "Pb Level",
+    caption = "Data Source: Environmental Data Initiative (EDI), published May 28, 2024. \nCreators come from the University of Minnesota and The Minneapolis-St. Paul Long Term Ecological Research") +
+  theme_ipsum() +
+  theme(axis.title.x = element_blank())
+
+pb_levels
+# the average content of Mg in the body of most animals is about 0.4 Mg / kg of body weight
+```
+
+Finally, we have our heatmap that shows which counties have the highest proportion of high metal content in their mammals. I filtered this down to only include the highest of those counties, that is the ones that have a ratio over 1.5. 
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| message: false
+#| progress: false
+#| results: "hide"
+
+# Combine the mg_df and fe_df dataframes into one long dataframe
+combined_df <- bind_rows(
+  mg_df %>%
+    mutate(element = "Magnesium"),
+  fe_df %>%
+    mutate(element = "Iron")
+)
+
+# Calculate the average proportion for each county and element
+combined_avg_df <- combined_df %>%
+  group_by(county, element) %>%
+  summarise(
+    avg_prop = mean(ifelse(element == "Magnesium", mg_prop, fe_prop), na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+# Reshape the data into a wide format
+combined_df_wide <- combined_avg_df %>%
+  pivot_wider(names_from = element, values_from = avg_prop) %>% 
+  filter(county != "Morrison")
+
+# View the reshaped data
+head(combined_df_wide)
+
+# Create a full heatmap (all counties) for Iron
+heatmap_all <- ggplot(combined_df_wide, aes(x = county, y = "Value")) +
+  geom_tile(aes(fill = Iron), color = "white") +  # Fill with Iron values
+  scale_fill_gradient2(low = "brown", high = "darkgreen", mid = "yellow", midpoint = median(combined_df_wide$Iron, na.rm = TRUE)) +
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    title = "Iron Levels Across Minnesota Counties (All Counties)",
+    x = "County",
+    y = "Element Levels",
+    fill = "Iron Level"
+  ) +
+  theme(
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    title = element_blank()
+    )
+
+# Filter the data for counties with Iron values above 5
+combined_df_filtered <- combined_df_wide %>%
+  filter(Iron > 1.5)  # Only include counties with Iron values > 5
+
+# Reorder the counties based on Iron values (from highest to lowest)
+combined_df_filtered <- combined_df_filtered %>%
+  mutate(county = reorder(county, Iron, FUN = function(x) -x))  # Reorder from highest to lowest Iron
+
+# Create a heatmap for counties with Iron values above 5, ordered by Iron levels
+heatmap_filtered <- ggplot(combined_df_filtered, aes(x = county, y = "Value")) +
+  geom_tile(aes(fill = Iron), color = "white") +  # Fill with Iron values
+  scale_fill_gradient2(low = "brown", high = "darkgreen", mid = "yellow", midpoint = median(combined_df_filtered$Iron, na.rm = TRUE)) +
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    x = "County",
+    y = "Element Levels",
+    fill = "Iron Level",
+    caption = "Data Source: Environmental Data Initiative (EDI), published May 28, 2024\nUnited States Geological Survey (USGS) Minerals Yearbook"
+  ) +
+  theme(
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    title = element_blank()
+  )
+
+# Arrange both heatmaps side by side
+grid.arrange(heatmap_all, heatmap_filtered,
+             ncol = 2,
+             top = textGrob("Iron Levels in Mammals Across Minnesota Counties"),
+             bottom = textGrob("Data Source: Environmental Data Initiative (EDI), published May 28, 2024\nUnited States Geological Survey (USGS) Minerals Yearbook",
+                               hjust = -0.15,
+                               gp = gpar(fontsize=10)))
+
+heatmap_all
+heatmap_filtered
+```
+
+Once I finished all of those plots in ggplot, I moved them into the software Affinity to make aesthetic changes and compile it all into my infographic. 
+
+## The infographic
+This infographic is aimed at people who have a background in ecology and scientific research, enough to be inquisitive about how human activity might affect animals. The goal is for these people to see the infographic and understand where they should aim their political advocacy. As expected, it seems like the main focus should be this mining and industry that exists in the upper east side of the state, near the Boundary Water Canoe Area in Cook, Lake, and Saint Louis counties. This has been the meeting point of environmentalists and developers for quite some time now. It is my hope that this infographic could continue to spark conversation, but mostly that it could shed light on how important it is to protect our species living in these vulnerable areas. 
+
+```{r, out.width='50%', out.height='40%', fig.align='center'}
+#| echo: false
+knitr::include_graphics("mn_mining_map.png")
+```
+
+
+### References
+Revisor of Statutes. (1984). Resolution 21 (Session Law 1984, Chapter 21). Minnesota Legislative Reference Library. Retrieved from https://www.revisor.mn.gov/laws/1984/0/Session+Law/Resolution/21/
+
+Snell-Rood, E. C., Kjaer, S. J., Marek-Spartz, M., Devitz, A.-C., & Jansa, S. A. (2024). Pronounced declines in heavy metal burdens of Minnesotan mammals over the last century. Environmental Science and Pollution Research, 31(4), 1234-1245. https://doi.org/10.1007/s11356-024-34667-y
