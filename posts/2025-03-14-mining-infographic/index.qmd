@@ -10,11 +10,13 @@ image: mining.jpg
 ---
 
 ## Background
+
 Human activity has been proven over time to have direct impacts on animal metal content. Too much metal can cause neurological and developmental damage in animals. Two of the biggest culprits of this are industry and urbanization. These two have been extremely prevalent in the state of Minnesota. Mining in the north near the Boundary Waters has been the biggest industry in the state for more than a century. Additionally, the mines in the south east of the state have been transformed in many cases into urban development. None of this is good for the animals, and it was especially bad when developers took no heed to be environmentally conscious. 
 
 This has lead me to a couple of questions: how has metal content varied over space and time in these mammals? Does this have correlation to where these mining sites are located? What about proximity to large human populations? Additionally, I was curious whether policy decisions in these areas had any effect on these findings. Specifially, there have been a set of policy decisions over the past 50 years in Minnesota that relate to leaded gasoline. I wondered if this might have any impact on lead levels specifically in these mammals.
 
 ## Data Information
+
 This dataset makes use of the University of Minnesota's Bell Museum of Natural History collection examining specimens of four mammal species (a mouse, shrew, bat and squirrel) to ask how tissue metal content has changed over a 94-year time period (1911-2005), and implications for measures of individual performance (body size and cranial capacity). The metal content of organisms is often elevated closer to cities, so these specimens were examined for spatial variation in metal exposure based on their proximity to human populations and the size of those populated areas at the time of collection. Analysis of mammal tissues focused on six heavy metals associated with human activity (Pb, Cd, Zn, Cu, Cr, Ni, Mn), to address whether these anthropogenic metal pollutants vary in concert with human activity.
 
 ## Code
@@ -378,10 +380,14 @@ heatmap_filtered
 Once I finished all of those plots in ggplot, I moved them into the software Affinity to make aesthetic changes and compile it all into my infographic. 
 
 ## The infographic
+
 This infographic is aimed at people who have a background in ecology and scientific research, enough to be inquisitive about how human activity might affect animals. The goal is for these people to see the infographic and understand where they should aim their political advocacy. As expected, it seems like the main focus should be this mining and industry that exists in the upper east side of the state, near the Boundary Water Canoe Area in Cook, Lake, and Saint Louis counties. This has been the meeting point of environmentalists and developers for quite some time now. It is my hope that this infographic could continue to spark conversation, but mostly that it could shed light on how important it is to protect our species living in these vulnerable areas. 
 
 ## Visual decisions
-Because of my intended audience, I made some aesthetic choices that made the infographic less informal. Despite this, to add some levity and draw the reader in, I decided to open up with a joke. I wanted the theme, colors, and text to all be in the natural domain. That is, I thought green and darker colors would be applicable to the themes. I wanted to make sure not to overwhelm the observer, even though there was a lot of information to communicate. While there were not a lot of people involved in my data and visualization, I was interested in applying a lense of care to the project. It centers around the themes of the smallest beings getting left behind. Large industrialization projects do not center the needs of these little critters. While this is not directly a DEI lens to this project, it is a lens of inclusivity as it relates to animals. I haven't focused that much on ecology in my studies at Bren, and though it is not my main interest, this has been a great dive into the reality of life for those much smaller than I. 
+
+Because of my intended audience, I made some aesthetic choices that made the infographic less informal. Despite this, to add some levity and draw the reader in, I decided to open up with a joke. I wanted the theme, colors, and text to all be in the natural domain. That is, I thought green and darker colors would be applicable to the themes. I wanted to make sure not to overwhelm the observer, even though there was a lot of information to communicate. 
+
+While there were not a lot of people involved in my data and visualization, I was interested in applying a lense of care to the project. It centers around the themes of the smallest beings getting left behind. Large industrialization projects do not center the needs of these little critters. While this is not directly a DEI lens to this project, it is a lens of inclusivity as it relates to animals. I haven't focused that much on ecology in my studies at Bren, and though it is not my main interest, this has been a great dive into the reality of life for those much smaller than I. 
 
 ```{r, out.width='50%', out.height='40%', fig.align='center'}
 #| echo: false
