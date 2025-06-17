@@ -8,7 +8,6 @@ author:
     affiliation: MEDS
     affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
 date: 2024-10-18
-categories: [Quarto, MEDS, eds-296]
 toc: true
 bibliography: references.bib
 csl: plos-computational-biology.csl

@@ -157,11 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           Following extreme weather events at the Minneapolis-Saint Paul International Airport
         </div>
       </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">Quarto</div>
-                <div class="quarto-category">MEDS</div>
-              </div>
-                  </div>
+                </div>
   </div>
     
   <div class="quarto-title-meta-author column-page-left">
@@ -429,7 +425,7 @@ average      1.643e-02  5.341e-04   30.77   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-(Dispersion parameter for Gamma family taken to be 0.0665279)
+(Dispersion parameter for Gamma family taken to be 0.06652693)
 
     Null deviance: 91.015  on 467  degrees of freedom
 Residual deviance: 33.274  on 466  degrees of freedom
@@ -498,16 +494,16 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-11.4392009</td>
-<td style="text-align: right;">0.2032386</td>
-<td style="text-align: right;">-56.2846</td>
+<td style="text-align: right;">-11.4392318</td>
+<td style="text-align: right;">0.2032374</td>
+<td style="text-align: right;">-56.28508</td>
 <td style="text-align: left;">0.000000000000000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">average</td>
-<td style="text-align: right;">0.0164337</td>
+<td style="text-align: right;">0.0164338</td>
 <td style="text-align: right;">0.0005341</td>
-<td style="text-align: right;">30.7714</td>
+<td style="text-align: right;">30.77173</td>
 <td style="text-align: left;">0.000000000000000</td>
 </tr>
 </tbody>
@@ -523,9 +519,9 @@ Number of Fisher Scoring iterations: 5</code></pre>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(gamma_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   2.5 %       97.5 %
-(Intercept) -11.85554125 -11.02269481
-average       0.01533981   0.01752864</code></pre>
+<pre><code>                  2.5 %       97.5 %
+(Intercept) -11.8555695 -11.02272832
+average       0.0153399   0.01752871</code></pre>
 </div>
 </div>
 <p>When we run our confidence interval for the intercept, we get [-11.85554125 -11.02269481] (for a 2.5%/97.5% split). This means that we can be 97.5% sure that the true intercept falls within that range. More importantly for our CO2 variable we get [0.01533981 0.01752864]. This means that we are 97.5% confident that the true value for our gamma regression falls within that range. While that range is higher than zero, it still does fall below that 0.05 range, giving us further confidence in our model.</p>
