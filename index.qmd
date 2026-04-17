@@ -1,6 +1,6 @@
 ---
 title: "Liz Peterson"
-image: RJH06643.JPG
+image: egp4aqpic.png
 about:
   template: solana
   image-shape: rectangle
