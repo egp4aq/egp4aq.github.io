@@ -3,7 +3,7 @@ title: "Elizabeth (Liz) Peterson"
 image: RJH06643.JPG
 about:
   template: trestles
-  image-shape: round
+  image-shape: rectangle
   links:
     - text: LinkedIn
       icon: linkedin
@@ -17,11 +17,9 @@ about:
       href: mailto:elizabethpeterson@bren.ucsb.edu
 ---
 
-Hi, I’m Liz Peterson, a recent graduate of the Environmental Data Science master’s program at UC Santa Barbara's Bren School of Environmnetal Science and Management, where I focused on using data to address climate change through an equity-driven lens.
+Hi, I’m Liz Peterson, a recent graduate of the Environmental Data Science master’s program at UC Santa Barbara's Bren School of Environmnetal Science and Management, where I focused on using data to address climate change through an equity-driven lens. I now work at an Impact Investment firm in San Francisco, working to direct private capital towards companies and funds working to solve environmental and social problems.
 
-I’m passionate about climate justice, conservation, and policy, especially when they intersect with real communities and real solutions. With a background in environmental science and data science from the University of Virginia, I bring both technical skills and lived experience to environmental storytelling and advocacy.
+I’m passionate about climate justice, conservation, and policy, especially when they intersect with real communities and real solutions. 
 
 Take a look at my [About page](about.qmd) to learn more, or head over to the [Blog](posts.qmd) to see what I’ve been thinking about lately.
-
-
 

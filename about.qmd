@@ -4,13 +4,13 @@ title: "About"
 
 ## [About Me]{.title}
 
-I’m Elizabeth Peterson, a recent graduate of the Master of Environmental Data Science program at the Bren School of Environmental Science & Management at UC Santa Barbara. I work at the intersection of data, climate justice, and policy — with a strong interest in building tools and systems that promote equity and conservation in the face of climate change.
+I’m Elizabeth Peterson, a recent graduate of the Master of Environmental Data Science program at the Bren School of Environmental Science & Management at UC Santa Barbara. I work at the intersection of data, climate justice, and policy — with a strong interest in building tools and systems that promote equity and aid conservation in the face of climate change.
 
-My background combines a B.A. in Environmental Science with a Data Science minor from the University of Virginia, and hands-on experience in geospatial analysis, machine learning, and environmental modeling. At Bren, I developed technical fluency in tools like Python, R, and GIS, and used those skills to explore how decarbonization might impact labor markets along California’s Central Coast through my capstone work with the 2035 Initiative.
+My background combines a B.A. in Environmental Science with a Data Science minor from the University of Virginia, and hands-on experience in geospatial analysis, machine learning, and environmental modeling. At Bren, I developed technical fluency in tools like Python, R, and ArcGIS Pro. I used those skills to explore how decarbonization might impact labor markets along California’s Central Coast through my capstone work with the 2035 Initiative.
 
-But my interest in climate work has always been grounded in people. During undergrad, I served as a Climate Justice Ambassador in Charlottesville, engaging directly with residents about natural gas use and energy burdens. I also volunteered over 250 hours with a student-run crisis hotline and supported contemplative research at UVA, learning how care and community can intersect with science and service.
+But my interest in climate work has always been grounded in people. During undergrad, I served as a Climate Justice Ambassador in Charlottesville, engaging directly with residents about natural gas use and energy burdens. I also volunteered over 250 hours with a student-run crisis hotline and supported contemplative science research at UVA, learning how care and community can intersect with science and service.
 
-Now, I work in impact investment in San Francisco. As it can feel like our social and governmental institutions are failing to keep up with the scale of environmental and social challenges facing us, it is more important than ever to make sure that money is flowing towards people and organizations who want to help fix these challenges. 
+Now, I work in impact investment in San Francisco. As it can feel like our social and governmental institutions are failing to keep up with the scale of environmental and social challenges facing us, it is more important than ever to make sure that private capital is flowing towards people and organizations who want to help fix these challenges.
 
 ---
 
