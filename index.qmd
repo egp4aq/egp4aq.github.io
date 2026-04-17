@@ -1,8 +1,8 @@
 ---
-title: "Elizabeth (Liz) Peterson"
+title: "Liz Peterson"
 image: RJH06643.JPG
 about:
-  template: trestles
+  template: solana
   image-shape: rectangle
   links:
     - text: LinkedIn
