@@ -19,7 +19,7 @@ about:
 
 Hi, I’m Liz Peterson, a recent graduate of the Environmental Data Science master’s program at UC Santa Barbara's Bren School of Environmnetal Science and Management, where I focused on using data to address climate change through an equity-driven lens. I now work at an Impact Investment firm in San Francisco, working to direct private capital towards companies and funds working to solve environmental and social problems.
 
-I’m passionate about climate justice, conservation, and policy, especially when they intersect with real communities and real solutions. 
+I’m passionate about climate justice, conservation, and climate policy, especially when they intersect to positively impact divested communities.
 
 Take a look at my [About page](about.qmd) to learn more, or head over to the [Blog](posts.qmd) to see what I’ve been thinking about lately.
 
