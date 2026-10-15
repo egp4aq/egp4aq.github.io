@@ -2,9 +2,7 @@
 title: "About"
 ---
 
-## [About Me]{.title}
-
-I’m Elizabeth Peterson, a recent graduate of the Master of Environmental Data Science program at the Bren School of Environmental Science & Management at UC Santa Barbara. I work at the intersection of data, climate justice, and policy — with a strong interest in building tools and systems that promote equity and aid conservation in the face of climate change.
+I work at the intersection of data, climate justice, and policy, with a strong interest in building tools and systems that promote equity and aid conservation in the face of climate change.
 
 My background combines a B.A. in Environmental Science with a Data Science minor from the University of Virginia, and hands-on experience in geospatial analysis, machine learning, and environmental modeling. At Bren, I developed technical fluency in tools like Python, R, and ArcGIS Pro. I used those skills to explore how decarbonization might impact labor markets along California’s Central Coast through my capstone work with the 2035 Initiative.
 
@@ -16,12 +14,7 @@ Now, I work in impact investment in San Francisco. As it can feel like our socia
 
 ## [Just for Fun]{.title}
 
-When I’m not working with data, I like to learn new tricks with a Japanese skill toy called the kendama. (It’s great for focus, and surprisingly humbling.) I love spending time outdoors hiking, swimming, and cautiously learning how to surf.
+When I’m not working with data, I like to learn new tricks with a Japanese skill toy called the kendama. (It’s great for focus, and seriously humbling.) I love spending time outdoors hiking, swimming, and cautiously learning how to surf.
 
 I also love reading and watching movies, though I hesitate to call myself a “film buff” or a “serious reader.” I just enjoy logging and rating what I take in. You can judge my taste for yourself on [Goodreads](https://www.goodreads.com/user/show/159610476-liz-peterson) and [Letterboxd](https://letterboxd.com/yeetlizpete/) — maybe it’s just another way for me to collect as much data as possible.
 
----
-
-## [Let’s Connect]{.title}
-
-You can see some of my work on [GitHub](https://github.com/egp4aq) or connect with me on [LinkedIn](https://www.linkedin.com/in/elizabeth-peterson-85046b204/). If you’re working on projects related to climate justice, policy, or conservation data, I’d love to hear from you.
